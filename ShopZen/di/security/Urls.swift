@@ -7,17 +7,29 @@
 
 import Foundation
 
-
+/***/
 class Urls
     {
     
-    private static let kAPI_URL          = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json"
+    /**
+     List of all availables web services
+     */
+    public enum WS : String
+        {
+        case LISTINGS = "listing.json"
+        case CATEGORY = "categories.json"
+        }
+    
+    private static let kAPI_URL          = "https://raw.githubusercontent.com/leboncoin/paperclip/master/"
     
     
     /***/
-    public static func getAPIUrl() -> Result<URL,Error>
+    public static func getAPIUrl
+        (
+        inWS : WS
+        ) -> Result<URL,Error>
         {
-        return Result { try convertToURL(inStr: kAPI_URL) }
+        return Result { try convertToURL(inStr: kAPI_URL + inWS.rawValue) }
         }
 
     /***/

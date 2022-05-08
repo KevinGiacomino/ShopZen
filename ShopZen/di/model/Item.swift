@@ -13,8 +13,9 @@ struct Item : Decodable
     let id, categoryId                      : Int
     let title, description, creationDate    : String
     let price                               : Double
-    let imagesUrl                           : ImageUrl//[String:String] // ImageUrl
+    let imagesUrl                           : [String:String] //ImageUrl//[String:String] // ImageUrl
     let isUrgent                            : Bool
+    
     
     /**
      List of all coding keys

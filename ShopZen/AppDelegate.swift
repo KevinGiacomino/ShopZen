@@ -19,11 +19,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: ShopViewController())
         
         window?.makeKeyAndVisible()
-        /*UINavigationBar.appearance().barTintColor = .green
-        UINavigationBar.appearance().tintColor = .green
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.green]*/
-        UINavigationBar.appearance().isTranslucent = false
-
+        if #available(iOS 15, *)
+            {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.backgroundColor = UIColor(named: "appPrimaryColor")
+            //appearance.shadowColor =  UIColor.lightGray.cgColor
+            //appearance.backgroundColor = UIColor(red: 0.0/255.0, green: 125/255.0, blue: 0.0/255.0, alpha: 1.0)
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
+            }
+        else
+            {
+            
+            UINavigationBar.appearance().layer.masksToBounds = true
+            UINavigationBar.appearance().layer.shadowColor = UIColor.lightGray.cgColor
+            UINavigationBar.appearance().layer.shadowOpacity = 0.8
+            UINavigationBar.appearance().layer.shadowOffset = CGSize(width: 0, height: 2.0)
+            UINavigationBar.appearance().layer.shadowRadius = 2
+            UINavigationBar.appearance().barTintColor = .white
+            UINavigationBar.appearance().tintColor = .white
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+            UINavigationBar.appearance().isTranslucent = true
+            }
+    
+        
         return true
     }
 

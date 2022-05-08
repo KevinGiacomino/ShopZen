@@ -31,6 +31,9 @@
 		0A16505C2826C7E500DE9FA6 /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16505B2826C7E500DE9FA6 /* AppKeys.swift */; };
 		0A16505F2826C9C200DE9FA6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16505E2826C9C200DE9FA6 /* String+Extension.swift */; };
 		0A1650612826CD5600DE9FA6 /* ImageUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650602826CD5600DE9FA6 /* ImageUrl.swift */; };
+		0A16506528281E2000DE9FA6 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16506428281E2000DE9FA6 /* ItemCollectionViewCell.swift */; };
+		0A165067282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A165066282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift */; };
+		0A1650692828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650682828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		0A16505B2826C7E500DE9FA6 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		0A16505E2826C9C200DE9FA6 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0A1650602826CD5600DE9FA6 /* ImageUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrl.swift; sourceTree = "<group>"; };
+		0A16506428281E2000DE9FA6 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A165066282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopViewController+UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
+		0A1650682828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +226,10 @@
 		0A16503B2826BC1B00DE9FA6 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0A16506328281E1200DE9FA6 /* collectionView */,
 				0A1650552826BF3300DE9FA6 /* ShopViewController.swift */,
+				0A165066282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift */,
+				0A1650682828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -290,6 +299,14 @@
 				0A16505E2826C9C200DE9FA6 /* String+Extension.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		0A16506328281E1200DE9FA6 /* collectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0A16506428281E2000DE9FA6 /* ItemCollectionViewCell.swift */,
+			);
+			path = collectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,15 +444,18 @@
 				0A1650542826BF0100DE9FA6 /* ShopDelegate.swift in Sources */,
 				0A16505F2826C9C200DE9FA6 /* String+Extension.swift in Sources */,
 				0A1650432826BC7A00DE9FA6 /* Category.swift in Sources */,
+				0A16506528281E2000DE9FA6 /* ItemCollectionViewCell.swift in Sources */,
 				0A1650022826B60E00DE9FA6 /* ViewController.swift in Sources */,
 				0A1650332826BAC800DE9FA6 /* BaseViewModel.swift in Sources */,
 				0A1650612826CD5600DE9FA6 /* ImageUrl.swift in Sources */,
 				0A164FFE2826B60E00DE9FA6 /* AppDelegate.swift in Sources */,
 				0A1650462826BCB300DE9FA6 /* Item.swift in Sources */,
+				0A165067282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift in Sources */,
 				0A16504A2826BDB300DE9FA6 /* DecoderHandler.swift in Sources */,
 				0A16503F2826BC4200DE9FA6 /* ShopViewModel.swift in Sources */,
 				0A16504F2826BEB500DE9FA6 /* Urls.swift in Sources */,
 				0A1650352826BAD200DE9FA6 /* BaseProtocol.swift in Sources */,
+				0A1650692828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift in Sources */,
 				0A1650562826BF3300DE9FA6 /* ShopViewController.swift in Sources */,
 				0A1650002826B60E00DE9FA6 /* SceneDelegate.swift in Sources */,
 				0A16505C2826C7E500DE9FA6 /* AppKeys.swift in Sources */,
