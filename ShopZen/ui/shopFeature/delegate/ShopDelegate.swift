@@ -11,7 +11,7 @@ import Foundation
 @objc protocol ShopDelegate : BaseProtocol
     {
     func initializeUI()
-    //func updateListOfDummy( inDummyData : Dummy )
+    func pushListOfItems( inListOfItems : Items )
     
     } // end of extension --------------------------------------------------------------
 

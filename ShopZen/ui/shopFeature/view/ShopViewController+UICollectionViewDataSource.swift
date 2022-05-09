@@ -7,18 +7,47 @@
 
 import UIKit
 
-
-extension ShopViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9 // How many cells to display
+/***/
+extension ShopViewController: UICollectionViewDataSource
+    {
+    /***/
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+        {
+        return mItems?.count ?? 0 // How many cells to display
+        }
+    /***/
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+        {
+        let outCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCollectionViewCell
+        // Ensure than an item exists at indexPath
+        guard var vItem = mItems?[indexPath.row] else { return outCell }
+        // Set image
+        if let vImgUrl = vItem.imagesUrl["thumb"]
+            {
+            do
+                {
+                try outCell.img.imageFromUrl(inUrlStr: vImgUrl)
+                }
+            catch
+                {
+                outCell.img.image = UIImage(named: "ic_default_img")
+                }
+            }
+        else
+            {
+            outCell.img.image = UIImage(named: "ic_default_img")
+            }
+        // Set title
+        outCell.title.text = vItem.title
+        // Set price
+        outCell.price.text = vItem.formattedPrice
+        // Check for ugence
+        outCell.urgentIconView.isHidden = !vItem.isUrgent
+        // Set category name
+        outCell.categoryName.text = vItem.categeryName
+        return outCell
+        }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
-        myCell.backgroundColor = UIColor.blue
-        return myCell
-    }
-}
 
 /*
 extension ShopViewController: UICollectionViewDataSource

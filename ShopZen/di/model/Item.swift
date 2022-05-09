@@ -16,6 +16,23 @@ struct Item : Decodable
     let imagesUrl                           : [String:String] //ImageUrl//[String:String] // ImageUrl
     let isUrgent                            : Bool
     
+    var categeryName                        : String?
+    
+    /***/
+    lazy var formattedPrice : String =
+        {
+        var outPrice = ""
+        outPrice = String(format: "$%.02f", price)
+        return outPrice
+        }()
+    
+    /***/
+    lazy var dateOfCreation : Date =
+        {
+        let vFormatter          = DateFormatter()
+        vFormatter              .dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return vFormatter       .date(from: creationDate)!
+        }()
     
     /**
      List of all coding keys

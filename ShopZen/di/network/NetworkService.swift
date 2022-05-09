@@ -21,7 +21,7 @@ class NetworkService : NSObject
     /**
      Call API to fetch list of Item
      */
-    public func fetchListOfItems(completion : @escaping ([Item]) -> ()) throws
+    public func fetchListOfItems(completion : @escaping (Items?) -> ()) throws
         {
         // -----------------
         // Ensure that an instance of DecoderHandler exists, else prevent host
@@ -36,11 +36,13 @@ class NetworkService : NSObject
             do
                 {
                 print("vDecodedData: \(try vDecodedData.get())")
-                try completion(vDecodedData.get())
+                let vItems = Items(inListOfItem: try vDecodedData.get())
+                completion(vItems)
                 }
             catch
                 {
                 print("ERROR: \(error.localizedDescription)")
+                completion(nil)
                 }
             })
         }
@@ -48,7 +50,7 @@ class NetworkService : NSObject
     /**
      Call API to fetch list of Category
      */
-    public func fetchListOfCategory(completion : @escaping ([Category]) -> ()) throws
+    public func fetchListOfCategory(completion : @escaping ([Category]?) -> ()) throws
         {
         // -----------------
         // Ensure that an instance of DecoderHandler exists, else prevent host
@@ -68,6 +70,7 @@ class NetworkService : NSObject
             catch
                 {
                 print("ERROR: \(error.localizedDescription)")
+                completion(nil)
                 }
             })
         }
