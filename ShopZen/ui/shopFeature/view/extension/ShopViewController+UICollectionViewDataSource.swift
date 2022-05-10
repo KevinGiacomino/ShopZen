@@ -22,16 +22,20 @@ extension ShopViewController: UICollectionViewDataSource
         // Ensure than an item exists at indexPath
         guard var vItem = mItems?[indexPath.row] else { return outCell }
         // Set image
-        if let vImgUrl = vItem.imagesUrl[ AppKeys.kThumb ]
+        if let vImgUrlStr = vItem.imagesUrl[ AppKeys.kThumb ],
+           let vImgUrl = URL(string: vImgUrlStr)
             {
-            do
+            outCell.img.loadImageWithUrl(vImgUrl)
+            /*do
                 {
-                try outCell.img.imageFromUrl(inUrlStr: vImgUrl)
+                //try outCell.img.imageFromUrl(inUrlStr: vImgUrl)
+                try vUrl =
+                outCell.img.loadImageWithUrl()
                 }
             catch
                 {
                 outCell.img.image = UIImage(named: AppKeys.kDefaultImg )
-                }
+                }*/
             }
         else
             {

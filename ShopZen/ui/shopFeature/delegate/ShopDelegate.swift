@@ -21,7 +21,7 @@ import Foundation
     /**
      Configure the info view which holds the number of items
      */
-    func configureInfoView      ( )
+    func configureCategoriesView      ( inListOfCategory : Categories )
     
     /**
     Configure the UI for the navigation bar
@@ -43,6 +43,13 @@ import Foundation
 		(
 		inListOfItem : ItemsWithCategory
 		)
+    
+    /**
+     Push the number of items for the actual catogory
+     
+       - parameter inNbOfItems:     The value of the number of items
+     */
+    func pushNbOfItems( inNbOfItems : String )
     
     /**
      Prevent the view that an error happened

@@ -8,6 +8,24 @@
 import UIKit
 
 
+extension UIApplication {
+
+    class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(base: selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        return base
+    }
+}
+
 
 /**
  Main view
@@ -25,10 +43,12 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 
 
     /***/
-    lazy public var currentCatBtn : UIBarButtonItem =
+    lazy public var nbOfItemsBarBtn : UIBarButtonItem =
         {
         let outBarButton = UIBarButtonItem()
         outBarButton.tintColor = .white
+        //outBarButton.action = #selector(onFilterTapped)
+       // outBarButton.title                 = "97 articles"
         return outBarButton
         }()
     
@@ -36,9 +56,10 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     lazy public var nbOfItemsText : UILabel =
         {
         let outLabel = UILabel()
-        outLabel.textColor = .black
+            
         let italicFont = UIFont.italicSystemFont(ofSize:18)
         outLabel.font = italicFont
+        
         return outLabel
         }()
     
@@ -48,7 +69,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         let outBarButton = UIBarButtonItem()
        // outBarButton.title = "97 items"
         outBarButton.tintColor = .white
-        
+
         //outBarButton.isEnabled = false
            // outBarButton.action =
         return outBarButton
@@ -65,6 +86,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         var vFilterImg = UIImage(named: "ic_filter")
        // outBarButton.setBackgroundImage(vFilterImg, for: .normal)
         outBarButton.image = vFilterImg
+
         outBarButton.image?.withRenderingMode(.alwaysOriginal)
         return outBarButton
         }()
@@ -111,21 +133,23 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         outBtn.setTitle( "FILTER", for: .normal )
         outBtn.setTitleColor( .black, for: .normal)
         outBtn.translatesAutoresizingMaskIntoConstraints = false
-            outBtn.addTarget(self, action: #selector(onFilterTapped), for: .touchUpInside)
+        //    outBtn.addTarget(self, action: #selector(onFilterTapped), for: .touchUpInside)
 
         return outBtn
         }()
     
+
     /***/
-    lazy public var headerStackView : UIStackView =
+    lazy public var categoryStackView : UIStackView =
         {
-        let outStackView = UIStackView(arrangedSubviews: [nbofItemLabel, filterLabel])
+       let outStackView = UIStackView()
+        //let outStackView = UIScrollView()
         outStackView.translatesAutoresizingMaskIntoConstraints = false
 
         outStackView.axis = .horizontal
-            outStackView.alignment = .center
-        outStackView.distribution = .equalCentering
-        outStackView.spacing = 0
+        outStackView.alignment = .center
+            outStackView.distribution = .equalSpacing
+        outStackView.spacing = 10
         return outStackView
         }()
 
@@ -184,6 +208,23 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     func configureMainUI()
         {
         view.backgroundColor                = UIColor(named: "AppBgColor")
+            
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            scrollView.addSubview(categoryStackView)
+            //view.addSubview(scrollView)
+            view.addSubview(scrollView,  anchors: [.leading(8), .trailing(-8), .top(16)])
+          //  scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+           // scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+           // scrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            scrollView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+            
+            categoryStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+            categoryStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+            categoryStackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+            categoryStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+            categoryStackView.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor).isActive = true
+
         }
     
 	/**
@@ -193,30 +234,115 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         {
         navigationItem                      .title = "Shop"
             //view.addSubview(nbofItemLabel, anchors: [.leading(8), .top(16)])
-        currentCatBtn.title                 = "All categories"
-        navigationItem.leftBarButtonItem    = currentCatBtn
-        navigationItem.rightBarButtonItem   = filterBarButton
-
+        navigationItem.leftBarButtonItem    = nbOfItemsBarBtn
+       // navigationItem.rightBarButtonItem   = filterBarButton
+                /* let menuButtonImage = UIImage(named: "")
+            let menuButton = UIBarButtonItem(title: "test", style: .plain, target: self, action: #selector(didTapMenuButton))
+            menuButton.tintColor = .white
+            navigationItem.rightBarButtonItem = menuButton*/
                 // Adding header view
       //  view.addSubview(headerStackView, anchors: [.leading(24), .trailing(-24), .top(16)])
 
         }
-        
-    /**
-     See ShopViewDelegate#configureInfoView()
-     */
-    func configureInfoView()
+
+    let scrollView = UIScrollView()
+
+    var categoryBtns: [UIButton] = [UIButton]()
+
+    @objc func onCategoryTapped(sender: UIButton!)
         {
-        nbOfItemsText.text                  = "97 items"
-        view.addSubview(nbOfItemsText       , anchors: [.leading(16), .trailing(-16), .top(16)])
+        print("Button tapped \(sender.tag)")
+           // setBtnSelected( inBtn: sender)
+       
+        categoryBtns.forEach { $0.isSelected = false
+               setBtnUnSelectedUI(inBtn: $0)
+
+            }
+
+        setBtnSelectedUI(inBtn: sender)
+        //sender.isSelected = true
+      //  sender.backgroundColor = UIColor(named: "AccentColor")
+        getViewModel().onCategoryTapped(inCatId: sender.tag)
+            
         }
+    
+    /***/
+    private func setBtnSelectedUI( inBtn : UIButton )
+        {
+        inBtn.setTitleColor(.white, for: .normal)
+        inBtn.backgroundColor = UIColor(named: "AccentColor")
+        inBtn.isSelected = true
+        // Avoid double taps
+        inBtn.isEnabled = false
+        }
+
+    /***/
+    private func setBtnUnSelectedUI( inBtn : UIButton )
+        {
+        inBtn.setTitleColor(.white, for: .normal)
+        inBtn.backgroundColor = .clear
+        inBtn.setTitleColor(.darkGray, for: .normal)
+        inBtn.isEnabled = true
+
+        }
+    
+    
+    private func createCategoryBtn( inTitle : String ) -> UIButton
+        {
+        let outBtn = UIButton()
+        outBtn.setTitleColor(.darkGray, for: .normal)
+        outBtn.setTitle(inTitle, for: .normal)
+        outBtn.backgroundColor = .clear
+        outBtn.layer.cornerRadius = 10
+        outBtn.layer.borderWidth = 1
+        outBtn.titleLabel?.font =  UIFont.systemFont(ofSize: 14)
+        outBtn.sizeToFit()
+        outBtn.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+            outBtn.addTarget(self, action: #selector(onCategoryTapped), for: .touchUpInside)
+        outBtn.showsTouchWhenHighlighted = true
+
+       // button.titleEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        outBtn.layer.borderColor = UIColor(named: "AccentColor")?.cgColor
+        return outBtn
+        }
+    
+   
+    /**
+     See ShopViewDelegate#configureCategoriesView()
+     */
+    func configureCategoriesView
+        (
+        inListOfCategory : Categories
+        )
+        {
+            
+        let vAllBtn = createCategoryBtn(inTitle: "Tout")
+        setBtnSelectedUI(inBtn: vAllBtn)
+        categoryStackView.addArrangedSubview(vAllBtn)
+        categoryBtns.append(vAllBtn)
+            
+            
+        for vCategory in inListOfCategory.listOfCategory.enumerated()
+            {
+            let vCatBtn = createCategoryBtn(inTitle: vCategory.element.name)
+            vCatBtn.tag = vCategory.element.id
+            categoryBtns.append(vCatBtn)
+
+           // vCatBtn.action
+            categoryStackView.addArrangedSubview(vCatBtn)
+            }
+        }
+  
+
+ 
     /**
      See ShopViewDelegate#configureCollectionView()
      */
     func configureCollectionView()
         {
         view.addSubview(itemCollectionView)
-        itemCollectionView.topAnchor            .constraint(equalTo: nbOfItemsText.bottomAnchor).isActive = true
+       // itemCollectionView.topAnchor            .constraint(equalTo: nbOfItemsText.bottomAnchor).isActive = true
+            itemCollectionView .topAnchor           .constraint(equalTo: scrollView.bottomAnchor, constant: 16.0).isActive = true
         itemCollectionView.leadingAnchor        .constraint(equalTo: self.view.leadingAnchor).isActive = true
         itemCollectionView.trailingAnchor       .constraint(equalTo: self.view.trailingAnchor).isActive = true
         itemCollectionView.bottomAnchor         .constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -234,11 +360,22 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inListOfItem : ItemsWithCategory
 		)
         {
+        ZenLog.c("pushListOfItem")
+
         DispatchQueue.main.async
             {
             self.mItems = inListOfItem.listOfItem
             self.itemCollectionView.reloadData()
             }
+        }
+    
+    /**
+     See ShopViewDelegate#pushListOfItem()
+     */
+    func pushNbOfItems( inNbOfItems : String )
+        {
+        ZenLog.c("pushNbOfItems\(inNbOfItems)")
+        nbOfItemsBarBtn.title = inNbOfItems
         }
         
 	/**
@@ -249,7 +386,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inErrorMsg : String
 		)
 		{
-		
+        ZenLog.c("popError\(inErrorMsg)")
+
 		}
     
     

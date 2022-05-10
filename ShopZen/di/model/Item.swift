@@ -27,7 +27,7 @@ struct Item : Decodable
     lazy var formattedPrice : String =
         {
         var outPrice = ""
-        outPrice = String(format: "$%.02f", price)
+        outPrice = String(format: "%.0f €", price)
         return outPrice
         }()
     

@@ -27,9 +27,9 @@ class ItemCollectionViewCell : UICollectionViewCell
         }()
         
     /***/
-    public lazy var img 	: UIImageView =
+    public lazy var img 	: ImageCached =
         {
-        let outImg  = UIImageView()
+        let outImg  = ImageCached()
         outImg      .translatesAutoresizingMaskIntoConstraints = false
       //  outImg      .setContentHuggingPriority(.defaultLow, for: .vertical)
         outImg      .contentMode      = .scaleAspectFill

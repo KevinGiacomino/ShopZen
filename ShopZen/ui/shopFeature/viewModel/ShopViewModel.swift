@@ -24,12 +24,13 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
         {
         didSet
             {
-                
+            let vCategories = Categories(inListOfCategory: listOfCategory)
+            getDelegate().configureCategoriesView(inListOfCategory: vCategories)
             }
         }
 
     /***/
-    private(set) var listOfItem : ItemsWithCategory!
+    private(set) var itemsWithCategory : ItemsWithCategory!
         {
         didSet
             {
@@ -38,7 +39,8 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // Immediately push it to the view
             // --------------------
             print("listOfItem set HELLO")
-            getDelegate().pushListOfItem(inListOfItem: listOfItem )
+            getDelegate().pushListOfItem(inListOfItem: itemsWithCategory )
+            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }
         }
     
@@ -58,11 +60,13 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     
     override func onAttach()
         {
+            
         getDelegate().configureMainUI()
-        getDelegate().configureInfoView()
+        //getDelegate().conf()
+        callListOfItems()
+
         getDelegate().configureNavBar()
         getDelegate().configureCollectionView()
-		callListOfItems()
         }
 
 
@@ -74,6 +78,39 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 		{
 		ZenLog.d("onItemTapped\(inIndex)")
 		}
+    
+   // private var currentCatId : Int = 0
+    /**
+     Called when user taps on a category
+     Select the category and filter items by it
+     */
+    public func onCategoryTapped( inCatId : Int )
+        {
+        if( inCatId == 0 )
+            {
+            // ---------------
+            // "All categories" button is tapped, display the whole list
+            // ---------------
+            getDelegate().pushListOfItem(inListOfItem: itemsWithCategory)
+            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            }
+        else
+            {
+            // ---------------
+            // A category is tapped, filter the list and push it to the view
+            // ---------------
+            let vNewList = itemsWithCategory.listOfItem.filter { $0.categoryId == inCatId }
+            let vOutItems = ItemsWithCategory(inListOfItem: vNewList)
+            //itemsWithCategory = vOutItems
+            getDelegate().pushListOfItem(inListOfItem: vOutItems)
+            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: vNewList.count))
+
+            }
+  
+        }
+    
+    
+    // MARK: - Toolbox
     
     /***/
     private func callListOfItems()
@@ -93,7 +130,9 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 			(inData) in
 			do
 				{
-                self.listOfItem = try inData.get().0
+                self.listOfCategory = try inData.get().1
+                self.itemsWithCategory = try inData.get().0
+                
 				}
 			catch
 				{
@@ -102,6 +141,13 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 			})
         }
     
+    /**
+     Format the number of items String
+     */
+    private func getNbOfItemStr( inNb : Int ) -> String
+        {
+        return "\(inNb) articles"
+        }
     
     } // end of class --------------------------------------------------------------
 
