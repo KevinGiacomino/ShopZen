@@ -7,16 +7,21 @@
 
 import Foundation
 
-/***/
+/**
+ Class representing an Item
+ */
 struct Item : Decodable
     {
+    
+    // MARK: - Properties
+
     let id, categoryId                      : Int
     let title, description, creationDate    : String
     let price                               : Double
     let imagesUrl                           : [String:String] //ImageUrl//[String:String] // ImageUrl
     let isUrgent                            : Bool
     
-    var categeryName                        : String?
+    var categoryName                        : String?
     
     /***/
     lazy var formattedPrice : String =
@@ -33,7 +38,9 @@ struct Item : Decodable
         vFormatter              .dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return vFormatter       .date(from: creationDate)!
         }()
-    
+       
+    // MARK: - Coding keys
+
     /**
      List of all coding keys
      */

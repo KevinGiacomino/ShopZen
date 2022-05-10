@@ -7,67 +7,6 @@
 
 import UIKit
 
-extension ShopViewController: UICollectionViewDelegateFlowLayout
-    {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize
-        {
-        if let vTitle = mItems?[indexPath.row].title
-            {
-            if UIDevice.current.orientation.isLandscape
-                {
-                        print("=============================LANDSCAPE=============================")
-                print("columnLayout.minimumInteritemSpacing : \(collectionFlowLayout.minimumInteritemSpacing)")
-                print("columnLayout.sectionInset.left : \(collectionFlowLayout.sectionInset.left)")
-                print("columnLayout.sectionInset.right : \(collectionFlowLayout.sectionInset.right)")
-                let contentHorizontalSpaces = collectionFlowLayout.minimumInteritemSpacing
-                + collectionFlowLayout.sectionInset.left
-                + collectionFlowLayout.sectionInset.right
-                print("collectionView.bounds.width: \(collectionView.bounds.width  - contentHorizontalSpaces)")
-                let newCellWidth = (collectionView.bounds.width - contentHorizontalSpaces) / 4
-                print("newCellWidth : \(newCellWidth)")
-                print("==================================")
-                
-                let newHeight = ItemCollectionViewCell.getProductHeightForWidth(props: vTitle, width: newCellWidth)
-                //let newHeight = 250.0
-                // TODO: CHECK POUR DYNAMISER CA
-                return CGSize(width: 150.0, height: newHeight)
-                /*let cellWidth =  (view.frame.size.width - 50) / 2
-
-                return CGSize(width: (cellWidth-30)/2, height: (cellWidth-30)/2)*/
-                }
-            else
-                {
-                print("=============================PORTRAIT=============================")
-                print("columnLayout.minimumInteritemSpacing : \(collectionFlowLayout.minimumInteritemSpacing)")
-                print("columnLayout.sectionInset.left : \(collectionFlowLayout.sectionInset.left)")
-                print("columnLayout.sectionInset.right : \(collectionFlowLayout.sectionInset.right)")
-
-                let contentHorizontalSpaces = collectionFlowLayout.minimumInteritemSpacing
-                + collectionFlowLayout.sectionInset.left
-                + collectionFlowLayout.sectionInset.right
-                let newCellWidth = (collectionView.bounds.width - contentHorizontalSpaces) / 2
-                let newHeight = ItemCollectionViewCell.getProductHeightForWidth(props: vTitle, width: newCellWidth)
-                        print("newCellWidth : \(newCellWidth)")
-                            print("collectionView.bounds.width: \(collectionView.bounds.width  - contentHorizontalSpaces)")
-                
-                print("==================================")
-
-                //let newHeight = 250.0
-                return CGSize(width: newCellWidth, height: newHeight)
-                }
-
-            }
-
-        return CGSize(width: 0, height: 0)
-
-        }
-
-    
-    }
-
-
 
 
 /**
@@ -82,31 +21,14 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     
     var mItems                  : [Item]?
     
-    /*let items = [
-       "Status homme noir assis",
-       "Lorem ipsum dolor sit amet, consectetur.",
-       "Lorem ipsum dolor sit amet.",
-       "Lorem ipsum dolor sit amet, consectetur.",
-       "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-       "Lorem ipsum.",
-       "Lorem ipsum dolor sit amet.",
-       "Lorem ipsum dolor sit.",
-       "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-       "Lorem ipsum dolor sit amet, consectetur."
-   ]*/
-    
+    // MARK: - UI Variables
+
 
     /***/
     lazy public var currentCatBtn : UIBarButtonItem =
         {
         let outBarButton = UIBarButtonItem()
-        // outBarButton.title = "97 items"
         outBarButton.tintColor = .white
-      
-        //outBarButton.isEnabled = false
-        // outBarButton.action =
         return outBarButton
         }()
     
@@ -246,86 +168,90 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         return outStackView
         }()*/
     
+    // MARK: - Tapped methods
+    
+    	    
+    @objc func onFilterTapped()
+        {
+        print("onFilterTapped")
+        }
 
-    func initializeUI()
+    // MARK: - From delegate (MVVM)
+    
+    /**
+     See ShopViewDelegate#configureMainUI()
+     */
+    func configureMainUI()
+        {
+        view.backgroundColor                = UIColor(named: "AppBgColor")
+        }
+    
+	/**
+	 See ShopViewDelegate#configureNavBar()
+	 */
+    func configureNavBar()
         {
         navigationItem                      .title = "Shop"
-        view.backgroundColor                = .yellow
-        //view.addSubview(nbofItemLabel, anchors: [.leading(8), .top(16)])
+            //view.addSubview(nbofItemLabel, anchors: [.leading(8), .top(16)])
         currentCatBtn.title                 = "All categories"
         navigationItem.leftBarButtonItem    = currentCatBtn
-        navigationItem.rightBarButtonItem   =  filterBarButton
-        view.backgroundColor                = UIColor(named: "AppBgColor")
-        nbOfItemsText.text                  = "97 items"
-        
-        itemCollectionView                  .backgroundColor  = .clear
-        // Adding header view
+        navigationItem.rightBarButtonItem   = filterBarButton
+
+                // Adding header view
       //  view.addSubview(headerStackView, anchors: [.leading(24), .trailing(-24), .top(16)])
+
+        }
+        
+    /**
+     See ShopViewDelegate#configureInfoView()
+     */
+    func configureInfoView()
+        {
+        nbOfItemsText.text                  = "97 items"
         view.addSubview(nbOfItemsText       , anchors: [.leading(16), .trailing(-16), .top(16)])
-            
+        }
+    /**
+     See ShopViewDelegate#configureCollectionView()
+     */
+    func configureCollectionView()
+        {
         view.addSubview(itemCollectionView)
-            
         itemCollectionView.topAnchor            .constraint(equalTo: nbOfItemsText.bottomAnchor).isActive = true
         itemCollectionView.leadingAnchor        .constraint(equalTo: self.view.leadingAnchor).isActive = true
         itemCollectionView.trailingAnchor       .constraint(equalTo: self.view.trailingAnchor).isActive = true
         itemCollectionView.bottomAnchor         .constraint(equalTo: self.view.bottomAnchor).isActive = true
-        /*itemCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20.0).isActive = true
-        itemCollectionView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 20).isActive = true
-        itemCollectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -20.0).isActive = true
-        itemCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20.0).isActive = true*/
-
-         /*   NSLayoutConstraint.activate([
-                itemCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16),
-                itemCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 16),
-                itemCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
-                itemCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
-            ])*/
-        // Adding header view
-        //view.addSubview(headerStackView, anchors: [.leading(24), .trailing(-24), .top(16)])
-        //view.addSubview(itemCollectionView, anchors: [.leading(24), .trailing(-24), .top(80)])
-        // Adding collection view :
-        /*let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        layout.itemSize = CGSize(width: 40, height: 40)
-       
-        
-        let view = UIView()
-           view.backgroundColor = .white
-           
-           myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-           myCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
-           myCollectionView?.backgroundColor = UIColor.white
-           
-           myCollectionView?.dataSource = self
-           myCollectionView?.delegate = self*/
-
-           
-           //self.view = view
+        itemCollectionView                      .backgroundColor  = .clear
         }
+
+
     
-    @objc func onFilterTapped()
-        {
-       /* var alertView = UIAlertView()
-        alertView.addButton(withTitle: "Ok")
-        alertView.title = "title"
-        alertView.message = "message"
-        alertView.show()*/
-        print("onFilterTapped")
-        }
-    
-    /***/
-    func pushListOfItems( inListOfItems : Items )
+
+    /**
+	 See ShopViewDelegate#pushListOfItem()
+	 */
+    func pushListOfItem
+		(
+		inListOfItem : ItemsWithCategory
+		)
         {
         DispatchQueue.main.async
             {
-           //self.mItems = inListOfItems.listOfItem.sort { $0.isUrgent == $1.isUrgent ? $0.getCreationDate() < $1.firstName : $0.getCreationDate() > $1.getCreationDate()  }
-
-
-            self.mItems = inListOfItems.listOfItem
+            self.mItems = inListOfItem.listOfItem
             self.itemCollectionView.reloadData()
-            
             }
         }
+        
+	/**
+	 See ShopViewDelegate#popError()
+	 */
+	func popError
+		(
+		inErrorMsg : String
+		)
+		{
+		
+		}
+    
     
     func displayWaitingAnimation()
         {
@@ -339,7 +265,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         
     override func bindViewModelToView() -> ShopViewModel
         {
-        return ViewModelFactory.shared().getShopViewModel()
+        //return ViewModelFactory.shared().getShopViewModel()
+        return ViewModelFactory.shared().shopViewModel
         }
         
     } // end of extension --------------------------------------------------------------

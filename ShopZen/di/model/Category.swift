@@ -7,11 +7,18 @@
 
 import Foundation
 
-/***/
+/**
+ Representing an Category object
+ */
 struct Category : Decodable
     {
+    
+    // MARK: - Properties
+
     let id      : Int
     let name    : String
+    
+    // MARK: - Coding keys
     
     /**
      List of all coding keys

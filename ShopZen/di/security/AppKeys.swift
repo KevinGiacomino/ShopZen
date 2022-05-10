@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+/**
+ Class holding all keys for this App
+ */
+class AppKeys
+	{
+	static let kThumb 			= "thumb"
+	static let kDefaultImg		= "ic_default_img"
+	} // end of extension --------------------------------------------------------------
+
+//==============================================================================
+
+

@@ -7,37 +7,40 @@
 
 import Foundation
 
-/***/
+/**
+ Class responsible to provide the API URL
+ */
 class Urls
     {
     
     /**
      List of all availables web services
      */
-    public enum WS : String
+    public enum WSPath : String
         {
         case LISTINGS = "listing.json"
         case CATEGORY = "categories.json"
         }
     
-    private static let kAPI_URL          = "https://raw.githubusercontent.com/leboncoin/paperclip/master/"
+    /// Base URL
+    private static let kBASE_URL          = "https://raw.githubusercontent.com/leboncoin/paperclip/master/"
     
     
-    /***/
+    /**
+     */
     public static func getAPIUrl
         (
-        inWS : WS
+        inWS : WSPath
         ) -> Result<URL,Error>
         {
-        return Result { try convertToURL(inStr: kAPI_URL + inWS.rawValue) }
+        return Result { try convertToURL(inStr: kBASE_URL).appendingPathComponent( inWS.rawValue) }
         }
 
-    /***/
+    /**
+	 */
     private static func convertToURL( inStr : String ) throws -> URL
         {
-        guard let outURL = URL(string: inStr) else { throw "no API URL given"
-                
-            }
+        guard let outURL = URL(string: inStr) else { throw "no API URL given" }
         return outURL
         }
         

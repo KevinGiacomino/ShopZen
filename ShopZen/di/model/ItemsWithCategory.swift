@@ -7,11 +7,24 @@
 
 import Foundation
 
-class Items : NSObject
+/**
+ Class holding a list of Item object merged with it category
+ This class respect the Objective-C object representation that allows us to use it on protocol methods
+ */
+class ItemsWithCategory : NSObject
     {
+    
+      
+    // MARK: - Properties
+
     var listOfItem : [Item]
     
-    
+      
+    // MARK: - Constructor
+
+	/**
+	 Main constructor
+	 */
     init( inListOfItem : [Item] )
         {
         // TODO : REVOIR CE FILTRE,
@@ -27,7 +40,8 @@ class Items : NSObject
             return vLhs.dateOfCreation > vRhs.dateOfCreation// <2>
             }
         }
-    
-    
-    
-    }
+
+    } // end of extension --------------------------------------------------------------
+
+//==============================================================================
+

@@ -14,6 +14,11 @@ import Foundation
 class DecoderHandler
     {
     
+    // MARK: - Public methods
+
+	/**
+	 Allows to decode JSON into any type of Object
+	 */
     func decodeToObject<T : Decodable>
         (
         _ dynamicType: T.Type,

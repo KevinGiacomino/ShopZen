@@ -37,7 +37,7 @@ public class BaseViewModel< Delegate : BaseProtocol >
      */
     func attachDelegate( _ inDelegate : Delegate )
         {
-        print("attachDelegate \(  Delegate.self )")
+        ZenLog.d("attachDelegate \(  Delegate.self )")
         delegate = inDelegate
         }
         

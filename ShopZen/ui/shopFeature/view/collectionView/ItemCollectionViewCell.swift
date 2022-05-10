@@ -27,11 +27,10 @@ class ItemCollectionViewCell : UICollectionViewCell
         }()
         
     /***/
-    public lazy var img : UIImageView =
+    public lazy var img 	: UIImageView =
         {
         let outImg  = UIImageView()
         outImg      .translatesAutoresizingMaskIntoConstraints = false
-       // outImg.image = UIImage(named: "ic_default_img")
       //  outImg      .setContentHuggingPriority(.defaultLow, for: .vertical)
         outImg      .contentMode      = .scaleAspectFill
         outImg      .clipsToBounds    = true
@@ -39,7 +38,7 @@ class ItemCollectionViewCell : UICollectionViewCell
         }()
     
     /***/
-    public lazy var title : UILabel =
+    public lazy var title 	: UILabel =
         {
         let outLabel = UILabel()
         outLabel.numberOfLines = 0
@@ -51,7 +50,7 @@ class ItemCollectionViewCell : UICollectionViewCell
         }()
     
     /***/
-    public lazy var price : PaddingLabel =
+    public lazy var price 	: PaddingLabel =
         {
         let outLabel = PaddingLabel()
         outLabel.numberOfLines = 0
@@ -108,19 +107,6 @@ class ItemCollectionViewCell : UICollectionViewCell
     override init(frame: CGRect)
         {
         super.init(frame: frame)
-
-       // contentView.addSubview(label)
-      //  contentView.addSubview(img)
-        //contentView.addSubViews(label, img, price)
-        
-
-        /*label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true*/
-
-
-
         }
         
     required init?(coder aDecoder: NSCoder)
@@ -128,16 +114,17 @@ class ItemCollectionViewCell : UICollectionViewCell
         fatalError("init(coder:) has not been implemented")
         }
         
+	/***/
     func setupViews()
         {
         
         backgroundColor = .white
         contentView.addSubViews(urgentIconView, img, categoryName, title, price)
-        shadowDecorate()
-
-    
+        roundView()
         }
         
+        
+	/***/
      func setupConstraints()
         {
         
@@ -149,7 +136,6 @@ class ItemCollectionViewCell : UICollectionViewCell
         img.leftAnchor                  .constraint(equalTo: leftAnchor).isActive = true
         img.rightAnchor                 .constraint(equalTo: rightAnchor).isActive = true
         img.heightAnchor                .constraint(equalToConstant: 115).isActive = true
-        img.widthAnchor                  .constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor).isActive = true
 
         // ------------
         //
@@ -216,7 +202,6 @@ extension ItemCollectionViewCell
         // get image height based on width and aspect ratio
         let imageHeight = width * 2 / 3
         resultingHeight += imageHeight
-        print("imageHeight: \(imageHeight)")
 
         /*let categoryHeight = "Bricolage".getHeight(font: .systemFont(ofSize: 12), width: width  )
         resultingHeight += categoryHeight
@@ -226,19 +211,19 @@ extension ItemCollectionViewCell
         
         let titleHeight = props.getHeight(font: .systemFont(ofSize: 13), width: width  )
         resultingHeight += titleHeight
-                print("titleHeight: \(titleHeight)")
 
         let priceHeight = "25 $".getHeight(font: .systemFont(ofSize: 13), width: width  )
         resultingHeight += priceHeight
-                        print("priceHeight: \(priceHeight)")
 
         return resultingHeight //+ 80 // reasonable padding
         }
     }
 
 
-extension UICollectionViewCell {
-    func shadowDecorate() {
+extension UICollectionViewCell
+	{
+    func roundView()
+		{
         let radius: CGFloat = 10
         contentView.layer.cornerRadius = radius
         contentView.layer.borderWidth = 1
@@ -252,8 +237,8 @@ extension UICollectionViewCell {
         layer.masksToBounds = false
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath*/
         layer.cornerRadius = radius
-    }
-}
+		}
+	}
 
 
 extension String {

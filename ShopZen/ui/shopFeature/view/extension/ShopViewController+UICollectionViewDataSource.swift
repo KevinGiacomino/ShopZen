@@ -13,7 +13,7 @@ extension ShopViewController: UICollectionViewDataSource
     /***/
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
         {
-        return mItems?.count ?? 0 // How many cells to display
+        return mItems?.count ?? 0
         }
     /***/
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -22,7 +22,7 @@ extension ShopViewController: UICollectionViewDataSource
         // Ensure than an item exists at indexPath
         guard var vItem = mItems?[indexPath.row] else { return outCell }
         // Set image
-        if let vImgUrl = vItem.imagesUrl["thumb"]
+        if let vImgUrl = vItem.imagesUrl[ AppKeys.kThumb ]
             {
             do
                 {
@@ -30,12 +30,12 @@ extension ShopViewController: UICollectionViewDataSource
                 }
             catch
                 {
-                outCell.img.image = UIImage(named: "ic_default_img")
+                outCell.img.image = UIImage(named: AppKeys.kDefaultImg )
                 }
             }
         else
             {
-            outCell.img.image = UIImage(named: "ic_default_img")
+            outCell.img.image = UIImage(named: AppKeys.kDefaultImg )
             }
         // Set title
         outCell.title.text = vItem.title
@@ -44,7 +44,7 @@ extension ShopViewController: UICollectionViewDataSource
         // Check for ugence
         outCell.urgentIconView.isHidden = !vItem.isUrgent
         // Set category name
-        outCell.categoryName.text = vItem.categeryName
+        outCell.categoryName.text = vItem.categoryName
         return outCell
         }
     }
