@@ -14,8 +14,10 @@ public class BaseViewModel< Delegate : BaseProtocol >
     // MARK: - CLASS VARIABLES
     
     /// instance of the delegate. This variable is initialized once and deinit only when the app memory released
-    private lazy var delegate : Delegate? = nil
+    private lazy var privDelegate : Delegate? = nil
     
+    /// Retrieve the Delegate from outside of this class
+    public lazy var viewModelDelegate : Delegate  = { return privDelegate! }()
         
     // MARK: - CONSTRUCTOR
     
@@ -28,7 +30,7 @@ public class BaseViewModel< Delegate : BaseProtocol >
      Entry point of the Presenter.
      Should be overrided in each presenter classes.
      */
-    open func onAttach(){}
+    public func onAttach(){}
     
     /**
      Main method to attach the delegate protocol
@@ -38,19 +40,18 @@ public class BaseViewModel< Delegate : BaseProtocol >
     func attachDelegate( _ inDelegate : Delegate )
         {
         ZenLog.d("attachDelegate \(  Delegate.self )")
-        delegate = inDelegate
+        viewModelDelegate = inDelegate
         }
         
     
     /**
-     Allows to retrieve the Delegate from outside of this class
      
      - Returns: The delegate attached to this presenter
      */
-    open func getDelegate() -> Delegate
+    /*public func getDelegate() -> Delegate
         {
         return delegate!
-        }
+        }*/
     
     } // end of class --------------------------------------------------------------
 

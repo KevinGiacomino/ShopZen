@@ -41,6 +41,11 @@ import Foundation
      */
     func closeThisView()
     
+    /**
+     Shares item around social network
+     */
+    func shareItemToSocialNetwork()
+    
     } // end of extension --------------------------------------------------------------
 
 //==============================================================================

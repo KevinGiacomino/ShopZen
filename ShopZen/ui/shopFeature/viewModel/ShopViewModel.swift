@@ -24,7 +24,7 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
         didSet
             {
             let vCategories = Categories(inListOfCategory: listOfCategory)
-            getDelegate().configureCategoriesView(inListOfCategory: vCategories)
+            viewModelDelegate.configureCategoriesView(inListOfCategory: vCategories)
             }
         }
 
@@ -38,8 +38,8 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // Immediately push it to the view
             // --------------------
             print("listOfItem set HELLO")
-            getDelegate().pushListOfItem(inListOfItem: itemsWithCategory )
-            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            viewModelDelegate.pushListOfItem(inListOfItem: itemsWithCategory )
+            viewModelDelegate.pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }
         }
     
@@ -60,12 +60,11 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     override func onAttach()
         {
             
-        getDelegate().configureMainUI()
-        //getDelegate().conf()
+        viewModelDelegate.configureMainUI()
         callListOfItems()
 
-        getDelegate().configureNavBar()
-        getDelegate().configureCollectionView()
+        viewModelDelegate.configureNavBar()
+        viewModelDelegate.configureCollectionView()
         }
 
 
@@ -78,16 +77,14 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 		ZenLog.d("onItemTapped \(inItemId) ")
 		guard 0 < inItemId else
 			{
-			getDelegate().popError(inErrorMsg: "Article inconnu")
+            viewModelDelegate.popError(inErrorMsg: "Article inconnu")
 			return
 			}
 
 		let vItemDetailVc = ItemDetailViewController()
         vItemDetailVc.modalPresentationStyle = .fullScreen
 		vItemDetailVc.viewModel.item = itemsWithCategory.listOfItem.first(where:{ $0.id == inItemId } )
-		getDelegate().goToItemViewDetail( inVc : vItemDetailVc )
-		
-		//getDelegate().goToDetailView( )
+        viewModelDelegate.goToItemViewDetail( inVc : vItemDetailVc )
 		}
     
    // private var currentCatId : Int = 0
@@ -102,8 +99,7 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // ---------------
             // "All categories" button is tapped, display the whole list
             // ---------------
-            getDelegate().pushListOfItem(inListOfItem: itemsWithCategory)
-            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            refreshData(inListOfItem: itemsWithCategory, inNbOfItem: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }
         else
             {
@@ -113,9 +109,7 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             let vNewList = itemsWithCategory.listOfItem.filter { $0.categoryId == inCatId }
             let vOutItems = ItemsWithCategory(inListOfItem: vNewList)
             //itemsWithCategory = vOutItems
-            getDelegate().pushListOfItem(inListOfItem: vOutItems)
-            getDelegate().pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: vNewList.count))
-
+            refreshData(inListOfItem: vOutItems, inNbOfItem: getNbOfItemStr(inNb: vNewList.count))
             }
   
         }
@@ -147,9 +141,22 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 				}
 			catch
 				{
-				self.getDelegate().popError( inErrorMsg: "TODO: ERROR ")
+                self.viewModelDelegate.popError( inErrorMsg: "TODO: ERROR ")
 				}
 			})
+        }
+    
+    /**
+     Refresh the items in UICollectionView
+     */
+    private func refreshData
+        (
+        inListOfItem    : ItemsWithCategory,
+        inNbOfItem      : String
+        )
+        {
+        viewModelDelegate.pushListOfItem(inListOfItem: inListOfItem)
+        viewModelDelegate.pushNbOfItems(inNbOfItems: inNbOfItem)
         }
     
     /**

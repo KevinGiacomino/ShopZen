@@ -28,7 +28,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
 			let vImgUrl = URL(string:vImgUrlStr),
 			let vCatName	= vItem.categoryName
 			{
-			getDelegate().configureItemView(
+            viewModelDelegate.configureItemView(
 				inImgURL	: vImgUrl,
 				inIsUrgent	: vItem.isUrgent,
 				inTitle		: vItem.title,
@@ -43,7 +43,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
             // ----------------
             // An error happened, immediately close the view
             // ----------------
-            getDelegate().closeThisView()
+            viewModelDelegate.closeThisView()
 			}
 		
 		}
@@ -54,7 +54,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
      */
     public func onBackBtnTapped()
         {
-        getDelegate().closeThisView()
+        viewModelDelegate.closeThisView()
         }
     
     /**
@@ -63,7 +63,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
      */
     public func onShareBtnTapped()
         {
-        
+        viewModelDelegate.shareItemToSocialNetwork()
         }
         
     // MARK: - Private methods

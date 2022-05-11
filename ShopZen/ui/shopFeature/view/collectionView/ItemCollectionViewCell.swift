@@ -132,10 +132,9 @@ class ItemCollectionViewCell : UICollectionViewCell
         /*img.topAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         img.leftAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         img.rightAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true*/
-        img.topAnchor                   .constraint(equalTo: topAnchor).isActive = true
-        img.leftAnchor                  .constraint(equalTo: leftAnchor).isActive = true
-        img.trailingAnchor                 .constraint(equalTo: trailingAnchor).isActive = true
-            img.heightAnchor                .constraint(equalToConstant: contentView.frame.height / 3).isActive = true
+        img.topAnchor                       .constraint(equalTo: topAnchor).isActive = true
+        img.leftAnchor                      .constraint(equalTo: leftAnchor).isActive = true
+        img.trailingAnchor                  .constraint(equalTo: trailingAnchor).isActive = true
 
         // ------------
         //
