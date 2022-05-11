@@ -17,6 +17,9 @@ extension ShopViewController: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
 		{
 		ZenLog.d("User tapped on item \(indexPath.row)")
-		getViewModel().onItemTapped( inIndex: indexPath.row )
+		let vItem 	= mItems?[indexPath.row]
+				ZenLog.d("vItemId : \(vItem?.title)")
+
+        viewModel.onItemTapped( inItemId: vItem?.id ?? -1 )
 		}
 	}

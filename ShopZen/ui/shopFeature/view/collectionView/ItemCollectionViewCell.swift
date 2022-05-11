@@ -17,7 +17,7 @@ class ItemCollectionViewCell : UICollectionViewCell
         let outImg = UIImageView()
         outImg.translatesAutoresizingMaskIntoConstraints = false
         //outImg.backgroundColor = .white
-        outImg.image = UIImage(named: "ic_urgent")
+        outImg.image = ImagePalette.kUrgentIco
         outImg.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         outImg.contentMode = .scaleAspectFill
@@ -56,12 +56,12 @@ class ItemCollectionViewCell : UICollectionViewCell
         outLabel.numberOfLines = 0
         outLabel.translatesAutoresizingMaskIntoConstraints = false
         outLabel.textColor = .white
-        outLabel.text = "25.0 $"
+        //outLabel.text = "25.0 $"
         outLabel.textAlignment = .center
         //outLabel.backgroundColor = .systemBlue
         outLabel.layer.cornerRadius = 18
         outLabel.layer.masksToBounds = true
-        outLabel.layer.backgroundColor = UIColor(named: "AccentColor")?.cgColor
+        outLabel.layer.backgroundColor = ColorPalette.AccentColor.cgColor
         outLabel.edgeInset = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         //outLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         return outLabel
@@ -73,7 +73,7 @@ class ItemCollectionViewCell : UICollectionViewCell
         let outLabel = PaddingLabel()
         outLabel.numberOfLines = 0
         outLabel.translatesAutoresizingMaskIntoConstraints = false
-        outLabel.textColor = .systemRed
+        outLabel.textColor = ColorPalette.SecondaryColor
         //outLabel.text = "Bricolage"
         outLabel.textAlignment = .left
         let italicFont = UIFont.italicSystemFont(ofSize:13)
@@ -134,14 +134,14 @@ class ItemCollectionViewCell : UICollectionViewCell
         img.rightAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true*/
         img.topAnchor                   .constraint(equalTo: topAnchor).isActive = true
         img.leftAnchor                  .constraint(equalTo: leftAnchor).isActive = true
-        img.rightAnchor                 .constraint(equalTo: rightAnchor).isActive = true
-        img.heightAnchor                .constraint(equalToConstant: 115).isActive = true
+        img.trailingAnchor                 .constraint(equalTo: trailingAnchor).isActive = true
+            img.heightAnchor                .constraint(equalToConstant: contentView.frame.height / 3).isActive = true
 
         // ------------
         //
         // ------------
         urgentIconView.topAnchor            .constraint(equalTo: img.topAnchor).isActive = true
-        urgentIconView.rightAnchor            .constraint(equalTo: img.rightAnchor).isActive = true
+        urgentIconView.trailingAnchor            .constraint(equalTo: img.trailingAnchor).isActive = true
         urgentIconView.widthAnchor            .constraint(equalToConstant: 70).isActive = true
         urgentIconView.heightAnchor        .constraint(equalToConstant: 70).isActive = true
         contentView.bringSubviewToFront(urgentIconView)

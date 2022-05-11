@@ -5,7 +5,7 @@
 //  Created by Kevin on 07/05/2022.
 //
 
-import Foundation
+import UIKit
 
 /**
  Delegate responsible to communicate between ShopViewModel and the ShopViewController
@@ -60,6 +60,14 @@ import Foundation
 		(
 		inErrorMsg : String
 		)
+		
+		
+	/**
+	 Redirect user to the detailled view of the item
+	 
+	  - parameter inVc:			Instance of the ItemDetailViewController
+	 */
+	func goToItemViewDetail( inVc : UIViewController )
     
     } // end of extension --------------------------------------------------------------
 

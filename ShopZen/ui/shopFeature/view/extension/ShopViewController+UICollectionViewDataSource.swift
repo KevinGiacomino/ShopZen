@@ -25,17 +25,8 @@ extension ShopViewController: UICollectionViewDataSource
         if let vImgUrlStr = vItem.imagesUrl[ AppKeys.kThumb ],
            let vImgUrl = URL(string: vImgUrlStr)
             {
-            outCell.img.loadImageWithUrl(vImgUrl)
-            /*do
-                {
-                //try outCell.img.imageFromUrl(inUrlStr: vImgUrl)
-                try vUrl =
-                outCell.img.loadImageWithUrl()
-                }
-            catch
-                {
-                outCell.img.image = UIImage(named: AppKeys.kDefaultImg )
-                }*/
+            outCell.img.loadImageWithUrl( inUrl: vImgUrl)
+
             }
         else
             {
@@ -51,7 +42,9 @@ extension ShopViewController: UICollectionViewDataSource
         outCell.categoryName.text = vItem.categoryName
         return outCell
         }
-    }
+    } // end of class --------------------------------------------------------------
+
+//==============================================================================
 
 /*
 extension ShopViewController: UICollectionViewDataSource

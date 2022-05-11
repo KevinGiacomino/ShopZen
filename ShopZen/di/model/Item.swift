@@ -23,21 +23,22 @@ struct Item : Decodable
     
     var categoryName                        : String?
     
-    /***/
-    lazy var formattedPrice : String =
-        {
-        var outPrice = ""
-        outPrice = String(format: "%.0f €", price)
-        return outPrice
-        }()
+	/***/
+	var formattedPrice: String
+		{
+		var outPrice = ""
+		outPrice = String(format: "%.0f €", price)
+		return outPrice
+		}
+    
     
     /***/
-    lazy var dateOfCreation : Date =
+	var dateOfCreation : Date
         {
         let vFormatter          = DateFormatter()
-        vFormatter              .dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        vFormatter              .dateFormat = DateHelper.webDateFormat
         return vFormatter       .date(from: creationDate)!
-        }()
+        }
        
     // MARK: - Coding keys
 

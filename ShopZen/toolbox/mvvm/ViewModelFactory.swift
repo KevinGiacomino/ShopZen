@@ -7,13 +7,19 @@
 
 import Foundation
 
-/***/
+/**
+ Engine of the view model
+ */
 class ViewModelFactory
     {
     
-   // private var apiProvider  		: APIProvider?
-    //private let shopViewModel   	: ShopViewModel?
-   // private let itemDetailViewModel : ItemDetailViewModel?
+   static let shared: ViewModelFactory =
+		{
+        let outInstance = ViewModelFactory()
+        // setup code
+        return outInstance
+		}()
+    
     private static var instance		: ViewModelFactory?
     
     private lazy var apiProvider : APIProvider =
@@ -36,15 +42,15 @@ class ViewModelFactory
 		return outVm
 		}()
 		
-		
+	/*
     init()
         {
         //apiProvider = APIProvider()
         //shopViewModel = ShopViewModel(inAPIProvider: apiProvider! )
         //itemDetailViewModel	= ItemDetailViewModel()
-        }
+        }*/
     
-    public static func shared() -> ViewModelFactory
+    /*public static func shared() -> ViewModelFactory
         {
         if let vInstance = instance
             {
@@ -52,7 +58,7 @@ class ViewModelFactory
             return vInstance
             }
         return ViewModelFactory()
-        }
+        }*/
     
     /*public func getShopViewModel() -> ShopViewModel
         {
@@ -63,4 +69,7 @@ class ViewModelFactory
         {
         return itemDetailViewModel!
         }*/
-    }
+        
+    } // end of extension --------------------------------------------------------------
+
+//==============================================================================

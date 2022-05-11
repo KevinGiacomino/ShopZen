@@ -15,7 +15,6 @@ import Combine
 class ShopViewModel : BaseViewModel<ShopDelegate>
     {
     
-    
     // MARK: - Private methods
     
     //var apiProvider : APIProvider?
@@ -74,9 +73,21 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
      Called when user taps on an item in the UICollectionView
      Redirect it to the ItemDetailViewController
      */
-    public func onItemTapped( inIndex : Int )
+    public func onItemTapped( inItemId : Int )
 		{
-		ZenLog.d("onItemTapped\(inIndex)")
+		ZenLog.d("onItemTapped \(inItemId) ")
+		guard 0 < inItemId else
+			{
+			getDelegate().popError(inErrorMsg: "Article inconnu")
+			return
+			}
+
+		let vItemDetailVc = ItemDetailViewController()
+        vItemDetailVc.modalPresentationStyle = .fullScreen
+		vItemDetailVc.viewModel.item = itemsWithCategory.listOfItem.first(where:{ $0.id == inItemId } )
+		getDelegate().goToItemViewDetail( inVc : vItemDetailVc )
+		
+		//getDelegate().goToDetailView( )
 		}
     
    // private var currentCatId : Int = 0

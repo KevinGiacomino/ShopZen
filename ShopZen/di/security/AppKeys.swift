@@ -12,6 +12,7 @@ import Foundation
  */
 class AppKeys
 	{
+	static let kShopTitle		= "Boutique"
 	static let kThumb 			= "thumb"
 	static let kDefaultImg		= "ic_default_img"
 	} // end of extension --------------------------------------------------------------

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "filter.png",
+      "filename" : "icons8-effacer-50(@1x).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "filter-1.png",
+      "filename" : "icons8-effacer-100(@2x).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "filter-2.png",
+      "filename" : "icons8-effacer-150(@3x).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

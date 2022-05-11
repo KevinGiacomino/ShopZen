@@ -40,6 +40,12 @@
 		0A165074282AD96300DE9FA6 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A165073282AD96300DE9FA6 /* URLSession+Extension.swift */; };
 		0A1650B8282AFB3C00DE9FA6 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650B7282AFB3C00DE9FA6 /* Categories.swift */; };
 		0A1650BA282B191900DE9FA6 /* ImageCached.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650B9282B191800DE9FA6 /* ImageCached.swift */; };
+		0A5AC39F282C4588009157FA /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC39E282C4588009157FA /* UIButton+Extension.swift */; };
+		81203771282BB4F800286457 /* ShopViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203770282BB4F800286457 /* ShopViewController+UI.swift */; };
+		81203773282BB66500286457 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203772282BB66500286457 /* ColorPalette.swift */; };
+		81203775282BF18300286457 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203774282BF18300286457 /* DateHelper.swift */; };
+		81203778282BF88A00286457 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203777282BF88A00286457 /* Date+Extension.swift */; };
+		8120377A282C155900286457 /* ImagePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203779282C155900286457 /* ImagePalette.swift */; };
 		812FD567282A565300B14575 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812FD566282A565300B14575 /* APIError.swift */; };
 		812FD56A282A5AA100B14575 /* ZenLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812FD569282A5AA100B14575 /* ZenLog.swift */; };
 		812FD56C282A5FFC00B14575 /* Extension+NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812FD56B282A5FFC00B14575 /* Extension+NetworkService.swift */; };
@@ -107,6 +113,12 @@
 		0A165073282AD96300DE9FA6 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		0A1650B7282AFB3C00DE9FA6 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		0A1650B9282B191800DE9FA6 /* ImageCached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCached.swift; sourceTree = "<group>"; };
+		0A5AC39E282C4588009157FA /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		81203770282BB4F800286457 /* ShopViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopViewController+UI.swift"; sourceTree = "<group>"; };
+		81203772282BB66500286457 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		81203774282BF18300286457 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		81203777282BF88A00286457 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		81203779282C155900286457 /* ImagePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePalette.swift; sourceTree = "<group>"; };
 		812FD566282A565300B14575 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		812FD569282A5AA100B14575 /* ZenLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenLog.swift; sourceTree = "<group>"; };
 		812FD56B282A5FFC00B14575 /* Extension+NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NetworkService.swift"; sourceTree = "<group>"; };
@@ -199,7 +211,6 @@
 		0A16502D2826BA8800DE9FA6 /* di */ = {
 			isa = PBXGroup;
 			children = (
-				0A165075282AD98800DE9FA6 /* imageLoader */,
 				0A16503C2826BC2100DE9FA6 /* model */,
 				0A16504D2826BEAE00DE9FA6 /* security */,
 				0A1650482826BDA500DE9FA6 /* decoder */,
@@ -230,6 +241,7 @@
 		0A1650302826BAB100DE9FA6 /* toolbox */ = {
 			isa = PBXGroup;
 			children = (
+				81203776282BF19A00286457 /* helper */,
 				812FD568282A5A9C00B14575 /* logs */,
 				0A16506C282982B900DE9FA6 /* ui */,
 				0A16505D2826C9A700DE9FA6 /* extension */,
@@ -241,6 +253,7 @@
 		0A1650312826BABE00DE9FA6 /* mvvm */ = {
 			isa = PBXGroup;
 			children = (
+				0A1650582826C09B00DE9FA6 /* ViewModelFactory.swift */,
 				0A1650322826BAC800DE9FA6 /* BaseViewModel.swift */,
 				0A1650342826BAD200DE9FA6 /* BaseProtocol.swift */,
 				0A1650362826BADB00DE9FA6 /* BaseViewController.swift */,
@@ -319,7 +332,6 @@
 		0A1650572826C08A00DE9FA6 /* factory */ = {
 			isa = PBXGroup;
 			children = (
-				0A1650582826C09B00DE9FA6 /* ViewModelFactory.swift */,
 			);
 			path = factory;
 			sourceTree = "<group>";
@@ -332,6 +344,8 @@
 				0A16506A2829829E00DE9FA6 /* UIView+Extension.swift */,
 				0A1650712829A81D00DE9FA6 /* UIImageView+Extension.swift */,
 				0A165073282AD96300DE9FA6 /* URLSession+Extension.swift */,
+				81203777282BF88A00286457 /* Date+Extension.swift */,
+				0A5AC39E282C4588009157FA /* UIButton+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -350,15 +364,18 @@
 				0A1650572826C08A00DE9FA6 /* factory */,
 				0A16506D282982C200DE9FA6 /* PaddingLabel.swift */,
 				0A1650B9282B191800DE9FA6 /* ImageCached.swift */,
+				81203772282BB66500286457 /* ColorPalette.swift */,
+				81203779282C155900286457 /* ImagePalette.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
 		};
-		0A165075282AD98800DE9FA6 /* imageLoader */ = {
+		81203776282BF19A00286457 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				81203774282BF18300286457 /* DateHelper.swift */,
 			);
-			path = imageLoader;
+			path = helper;
 			sourceTree = "<group>";
 		};
 		812FD568282A5A9C00B14575 /* logs */ = {
@@ -409,6 +426,7 @@
 				0A165066282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift */,
 				0A1650682828211600DE9FA6 /* ShopViewController+UICollectionViewDelegate.swift */,
 				812FD57C282AA03500B14575 /* ShopViewController+UICollectionViewDelegateFlowLayout.swift */,
+				81203770282BB4F800286457 /* ShopViewController+UI.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -543,7 +561,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81203771282BB4F800286457 /* ShopViewController+UI.swift in Sources */,
 				812FD57D282AA03500B14575 /* ShopViewController+UICollectionViewDelegateFlowLayout.swift in Sources */,
+				8120377A282C155900286457 /* ImagePalette.swift in Sources */,
 				0A16503A2826BC0300DE9FA6 /* Extension+UIView.swift in Sources */,
 				812FD56A282A5AA100B14575 /* ZenLog.swift in Sources */,
 				0A165070282984E500DE9FA6 /* ItemsWithCategory.swift in Sources */,
@@ -553,6 +573,7 @@
 				0A16505F2826C9C200DE9FA6 /* String+Extension.swift in Sources */,
 				819233F1282ABEC500A6BEA7 /* APIClient.swift in Sources */,
 				0A1650432826BC7A00DE9FA6 /* Category.swift in Sources */,
+				81203778282BF88A00286457 /* Date+Extension.swift in Sources */,
 				0A16506528281E2000DE9FA6 /* ItemCollectionViewCell.swift in Sources */,
 				812FD576282A9EB300B14575 /* ItemDetailViewModel.swift in Sources */,
 				0A1650332826BAC800DE9FA6 /* BaseViewModel.swift in Sources */,
@@ -565,6 +586,7 @@
 				0A16506E282982C200DE9FA6 /* PaddingLabel.swift in Sources */,
 				0A165067282820B400DE9FA6 /* ShopViewController+UICollectionViewDataSource.swift in Sources */,
 				0A1650BA282B191900DE9FA6 /* ImageCached.swift in Sources */,
+				0A5AC39F282C4588009157FA /* UIButton+Extension.swift in Sources */,
 				0A16504A2826BDB300DE9FA6 /* DecoderHandler.swift in Sources */,
 				0A16503F2826BC4200DE9FA6 /* ShopViewModel.swift in Sources */,
 				819233F3282AC43F00A6BEA7 /* Extension+APIProvider.swift in Sources */,
@@ -577,6 +599,8 @@
 				0A1650002826B60E00DE9FA6 /* SceneDelegate.swift in Sources */,
 				0A16505C2826C7E500DE9FA6 /* AppKeys.swift in Sources */,
 				0A165074282AD96300DE9FA6 /* URLSession+Extension.swift in Sources */,
+				81203775282BF18300286457 /* DateHelper.swift in Sources */,
+				81203773282BB66500286457 /* ColorPalette.swift in Sources */,
 				0A16504C2826BE8C00DE9FA6 /* APIProviderOLD.swift in Sources */,
 				0A1650372826BADB00DE9FA6 /* BaseViewController.swift in Sources */,
 				812FD567282A565300B14575 /* APIError.swift in Sources */,
@@ -749,7 +773,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2RR9JPAV9C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShopZen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -777,7 +801,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2RR9JPAV9C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShopZen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

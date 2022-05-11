@@ -12,16 +12,30 @@ import UIKit
 public class BaseViewController<Delegate, ViewModel : BaseViewModel<Delegate> > : UIViewController
     {
 
-    private lazy var viewModel : BaseViewModel<Delegate>?      = nil
-    private lazy var delegate  : Delegate?                     = nil
+    private lazy var privViewModel  : BaseViewModel<Delegate>?      = nil
+    private lazy var delegate       : Delegate?                     = nil
  
+    /**
+     Shared view model
+     */
+    public lazy var viewModel : ViewModel  =
+        {
+        if( privViewModel == nil )
+            {
+            privViewModel = bindViewModelToView()
+            }
+        return privViewModel as! ViewModel
+        }()
+    
+        
+    
     
     public override func viewDidLoad()
         {
         // ---------------------
         // First bind the view model if no longer exists:
         // ---------------------
-        if ( viewModel == nil )
+        if ( privViewModel == nil )
             {
             viewModel = bindViewModelToView()
             }
@@ -32,23 +46,14 @@ public class BaseViewController<Delegate, ViewModel : BaseViewModel<Delegate> > 
            let vDelegate = self as? Delegate
             {
             delegate = vDelegate
-            getViewModel().attachDelegate( vDelegate )
+            viewModel.attachDelegate( vDelegate )
             }
-        getViewModel().onAttach()
+        viewModel.onAttach()
         
         }
         
-        
-    public func getViewModel() -> ViewModel
-        {
-        if( viewModel == nil )
-            {
-            viewModel = bindViewModelToView()
-            }
-        return viewModel as! ViewModel
-        }
-        
-        
+       
+  
     func bindViewModelToView() -> ViewModel
         {
         preconditionFailure("This method must be overriden")

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+/*
 extension UIImageView
     {
     public func imageFromUrl( inUrlStr : String ) throws
@@ -52,3 +52,4 @@ extension UIImageView
             }
         }
     }
+*/

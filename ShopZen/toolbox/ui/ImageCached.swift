@@ -7,62 +7,102 @@
 
 import UIKit
 
+/**
+ Sub class of UIImageView Widget
+ Allows to cache image using NSCache to improve loading performance
+ */
+class ImageCached: UIImageView
+	{
 
-class ImageCached: UIImageView {
-
-    let imageCache = NSCache<AnyObject, AnyObject>()
-
+    // MARK: - Private methods
     
-    var imageURL: URL?
+    private let imageCache 			= NSCache<AnyObject, AnyObject>()
+    private var imageURL			: URL?
+    private let activityIndicator 	= UIActivityIndicatorView()
 
-    let activityIndicator = UIActivityIndicatorView()
-
-    func loadImageWithUrl(_ url: URL) {
-
-        // setup activityIndicator...
-        activityIndicator.color = .darkGray
-
-        addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
-        imageURL = url
-
-        image = nil
+    // MARK: - Private methods
+    
+    /**
+     Loads an image using a web URL and cache it to easily reuse it later
+     
+      - parameter inUrl : 	The URL of the image to load
+	 */
+    func loadImageWithUrl
+		(
+		inUrl	: URL
+		)
+		{
+        // Set up indicator
+        activityIndicator	.color = .darkGray
+		// Adding indicator to subview
+        addSubview			( activityIndicator )
+        // Setup constraints
+		configureConstraints( )
+		// Set image url
+        imageURL 	= inUrl
+		// Reset by default
+        image 		= nil
+        // Starting indicator animation
         activityIndicator.startAnimating()
-
-        // retrieves image if already available in cache
-        if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
-
-            self.image = imageFromCache
+		// -------------------
+        // Retrieves image if already available in cache
+        // -------------------
+        if let vImageFromCache = imageCache.object(forKey: inUrl as AnyObject) as? UIImage
+			{
+            self.image = vImageFromCache
             activityIndicator.stopAnimating()
             return
-        }
-
-        // image does not available in cache.. so retrieving it from url...
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-
-            if error != nil {
-                print(error as Any)
-                DispatchQueue.main.async(execute: {
-                    self.activityIndicator.stopAnimating()
-                })
+			}
+		// -------------------
+        // image is not available from cache
+        // So retrieving it from URL
+        // -------------------
+        URLSession.shared.dataTask(with: inUrl, completionHandler: { (data, response, error) in
+			
+			// -------------------
+			// Error handling :
+			// -------------------
+            if error != nil
+				{
+				//-------------------
+				// An error happened, stop the animation
+				// -------------------
+				ZenLog.x( error?.localizedDescription ?? "Error from image loading" )
+                DispatchQueue.main.async(execute: { self.activityIndicator.stopAnimating() })
                 return
-            }
-
-            DispatchQueue.main.async(execute: {
-
-                if let unwrappedData = data, let imageToCache = UIImage(data: unwrappedData) {
-
-                    if self.imageURL == url {
-                        self.image = imageToCache
-                    }
-
-                    self.imageCache.setObject(imageToCache, forKey: url as AnyObject)
-                }
+				}
+			//-------------------
+			// No error, continue :
+			// -------------------
+            DispatchQueue.main.async(execute:
+				{
+				// --------------
+				// Getting data and displays image + cache it
+				// --------------
+                if let vData = data, let vImageToCache = UIImage(data: vData)
+					{
+					// Set image to image view
+                    if self.imageURL == inUrl { self.image = vImageToCache }
+                    // Adding image to cache management
+                    self.imageCache.setObject(vImageToCache, forKey: inUrl as AnyObject)
+					}
+				// Finish indicator animation
                 self.activityIndicator.stopAnimating()
-            })
-        }).resume()
-    }
-}
+				})
+			}).resume()
+		}
+		
+	/**
+	 Configure all constraints for widgets in this view
+	 */
+	private func configureConstraints()
+		{
+		activityIndicator	.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator	.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        activityIndicator	.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		}
+    
+    } // end of class --------------------------------------------------------------
+
+//==============================================================================
+	
