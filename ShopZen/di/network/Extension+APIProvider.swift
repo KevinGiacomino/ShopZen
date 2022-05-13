@@ -17,6 +17,8 @@ extension APIProvider
 	
 	/**
 	 Request server to obtain the list of item
+	 
+		- Returns Result delivered through AnyPublisher
 	 */
 	static func fetchListOfItem() -> AnyPublisher<[Item], Error>
 		{
@@ -33,6 +35,8 @@ extension APIProvider
 		
 	/**
 	 Request server to obtain the list of category
+	 
+		- Returns Result delivered through AnyPublisher
 	 */
 	static func fetchListOfCategory() -> AnyPublisher<[Category], Error>
 		{
@@ -54,7 +58,7 @@ extension APIProvider
         - parameter inItems : 		The list of items to merge
         - parameter inCategories :	The list of categories to retrieve the associated category
 	
-	    - Returns  The formatted list
+	    - Returns  					The formatted list
      */
     public static func mergeItemsWithCategory
         (
@@ -76,13 +80,15 @@ extension APIProvider
 
     
     /**
-     Generic methods
+     Generic methods to send API request and obtain result
+     
+        - Returns Result delivered through AnyPublisher
 	 */
     private static func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error>
 		{
         return apiClient.run(request)
             .map(\.value)
-			.receive(on: RunLoop.main)
+			.receive(on: DispatchQueue.main) // DispatchQueue allowing to load while CollectionView is scrolling
             .eraseToAnyPublisher()
 		}
     

@@ -10,7 +10,7 @@ import Foundation
 /**
  Class representing an Item
  */
-struct Item : Decodable
+struct Item : Decodable, Equatable
     {
     
     // MARK: - Properties

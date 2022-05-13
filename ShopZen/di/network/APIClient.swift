@@ -10,6 +10,7 @@ import Combine
 
 /**
  Generic object allowing to run a network call using the Combine framework
+ This object also hold some networking configuration
  */
 struct APIClient
 	{
@@ -26,6 +27,9 @@ struct APIClient
         let response: URLResponse
 		}
     
+    /**
+     Generic methods to run any network call and easily decode it into Object
+     */
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error>
 		{
         return URLSession.shared

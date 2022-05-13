@@ -30,7 +30,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		{
 		let outScrollView = UIScrollView()
 		outScrollView.translatesAutoresizingMaskIntoConstraints = false
-
+		outScrollView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
+		
 		//outScrollView.isScrollEnabled = true
 		//outScrollView.contentSize = CGSize(width: self.view.frame.width, height: scrollView.frame.size.height)
 		return outScrollView
@@ -101,7 +102,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         outStackView.translatesAutoresizingMaskIntoConstraints = false
         outStackView.axis = .horizontal
         outStackView.alignment = .center
-            outStackView.distribution = .equalSpacing
+		outStackView.distribution = .equalSpacing
         outStackView.spacing = 10
         return outStackView
         }()
@@ -139,15 +140,22 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 	 */
 	@objc func onCategoryTapped(sender: UIButton!)
         {
-        print("Button tapped \(sender.tag)")
-           // setBtnSelected( inBtn: sender)
-       
+        ZenLog.d("Button tapped \(sender.tag)")
+		// ---------------
+		// First, unselected all buttons
+		// ---------------
         categoryBtns.forEach
 			{
 			$0.isSelected = false
-			setBtnUnSelectedUI(inBtn: $0)
+			setCatBtnUnSelectedUI(inBtn: $0)
             }
-        setBtnSelectedUI(inBtn: sender)
+		// ---------------
+		// Then select the tapped button
+		// ---------------
+        setCatBtnSelectedUI(inBtn: sender)
+		// ---------------
+		// Finally prevent the host
+		// ---------------
         viewModel.onCategoryTapped(inCatId: sender.tag)
         }
 
@@ -158,22 +166,27 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
      */
     func configureMainUI()
         {
-        
+        // Sets main background color
         view.backgroundColor                = ColorPalette.AppBgColor
-            
-		categoryScrollView.addSubview(categoryStackView)
-            //view.addSubview(scrollView)
+		// Adding widget to view
 		view.addSubview(categoryScrollView,  anchors: [.leading(8), .trailing(-8), .top(16)])
-          //  scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-           // scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-           // scrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-		categoryScrollView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-
-            
+		categoryScrollView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+		// Sets default anchor
+		// ----------------
+		// Configure the categoryScrollView
+		// ----------------
+		categoryScrollView.addSubview(categoryStackView)
+		// Sets height anchor
+		//categoryScrollView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		// Sets leading anchor to categoryScrollView leading anchor
 		categoryStackView.leadingAnchor.constraint(equalTo: categoryScrollView.leadingAnchor).isActive = true
+		// Sets trailing anchor to categoryScrollView trailing anchor
 		categoryStackView.trailingAnchor.constraint(equalTo: categoryScrollView.trailingAnchor).isActive = true
+		// Sets top anchor to categoryScrollView top anchor
 		categoryStackView.topAnchor.constraint(equalTo: categoryScrollView.topAnchor).isActive = true
+		// Sets bottom anchor to categoryScrollView bottom anchor
 		categoryStackView.bottomAnchor.constraint(equalTo: categoryScrollView.bottomAnchor).isActive = true
+		// Sets width anchor
 		categoryStackView.widthAnchor.constraint(greaterThanOrEqualTo: categoryScrollView.widthAnchor).isActive = true
 
         }
@@ -184,60 +197,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     func configureNavBar()
         {
         navigationItem                      .title = AppKeys.kShopTitle
-            //view.addSubview(nbofItemLabel, anchors: [.leading(8), .top(16)])
         navigationItem.leftBarButtonItem    = nbOfItemsBarBtn
-       // navigationItem.rightBarButtonItem   = filterBarButton
-                /* let menuButtonImage = UIImage(named: "")
-            let menuButton = UIBarButtonItem(title: "test", style: .plain, target: self, action: #selector(didTapMenuButton))
-            menuButton.tintColor = .white
-            navigationItem.rightBarButtonItem = menuButton*/
-                // Adding header view
-      //  view.addSubview(headerStackView, anchors: [.leading(24), .trailing(-24), .top(16)])
-
-        }
-
-
-
-
-    
-    /***/
-    private func setBtnSelectedUI( inBtn : UIButton )
-        {
-        inBtn.setTitleColor(.white, for: .normal)
-        inBtn.backgroundColor = ColorPalette.AccentColor
-        inBtn.isSelected = true
-        // Avoid double taps
-        inBtn.isEnabled = false
-        }
-
-    /***/
-    private func setBtnUnSelectedUI( inBtn : UIButton )
-        {
-        inBtn.setTitleColor(.white, for: .normal)
-        inBtn.backgroundColor = .clear
-        inBtn.setTitleColor(.darkGray, for: .normal)
-        inBtn.isEnabled = true
-
-        }
-    
-    
-    private func createCategoryBtn( inTitle : String ) -> UIButton
-        {
-        let outBtn = UIButton()
-        outBtn.setTitleColor(.darkGray, for: .normal)
-        outBtn.setTitle(inTitle, for: .normal)
-        outBtn.backgroundColor = .clear
-        outBtn.layer.cornerRadius = 10
-        outBtn.layer.borderWidth = 1
-        outBtn.titleLabel?.font =  UIFont.systemFont(ofSize: 14)
-        outBtn.sizeToFit()
-        outBtn.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-		outBtn.addTarget(self, action: #selector(onCategoryTapped), for: .touchUpInside)
-        //outBtn.showsTouchWhenHighlighted = true
-
-       // button.titleEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        outBtn.layer.borderColor = ColorPalette.AccentColor.cgColor
-        return outBtn
         }
     
    
@@ -250,19 +210,20 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         )
         {
             
-        let vAllBtn = createCategoryBtn(inTitle: "Tout")
-        setBtnSelectedUI(inBtn: vAllBtn)
+        let vAllBtn = createCatBtn(inTitle: "Tout")
+        setCatBtnSelectedUI(inBtn: vAllBtn)
         categoryStackView.addArrangedSubview(vAllBtn)
         categoryBtns.append(vAllBtn)
 		
         for vCategory in inListOfCategory.listOfCategory.enumerated()
             {
-            let vCatBtn = createCategoryBtn(inTitle: vCategory.element.name)
+            let vCatBtn = createCatBtn(inTitle: vCategory.element.name)
             vCatBtn.tag = vCategory.element.id
             categoryBtns.append(vCatBtn)
 
            // vCatBtn.action
             categoryStackView.addArrangedSubview(vCatBtn)
+            
             }
         }
 
@@ -273,11 +234,15 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     func configureCollectionView()
         {
         view.addSubview(itemCollectionView)
-       // itemCollectionView.topAnchor            .constraint(equalTo: nbOfItemsText.bottomAnchor).isActive = true
+        // Sets top anchor
 		itemCollectionView .topAnchor           .constraint(equalTo: categoryScrollView.bottomAnchor, constant: 16.0).isActive = true
+		// Sets leading anchor to view
         itemCollectionView.leadingAnchor        .constraint(equalTo: self.view.leadingAnchor).isActive = true
+        // Sets trailing anchor to view
         itemCollectionView.trailingAnchor       .constraint(equalTo: self.view.trailingAnchor).isActive = true
+        // Sets bottom anchor to view
         itemCollectionView.bottomAnchor         .constraint(equalTo: self.view.bottomAnchor).isActive = true
+		// Sets background color to clear
         itemCollectionView                      .backgroundColor  = .clear
         }
 
@@ -355,17 +320,4 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     } // end of extension --------------------------------------------------------------
 
 //==============================================================================
-/*
-extension ShopViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9 // How many cells to display
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
-        myCell.backgroundColor = UIColor.blue
-        return myCell
-    }
-}*/
-
 

@@ -13,7 +13,7 @@ import UIKit
  This class is responsible to manages the UI of this view.
  It displays a list of Items
  */
-class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, ItemDetailViewModel>,
+class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDetailViewModel>,
     ItemDetailDelegate
 	{
 	    
@@ -25,7 +25,7 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 		{
 		let outScrolllView	= UIScrollView()
 		outScrolllView		.translatesAutoresizingMaskIntoConstraints = false
-        outScrolllView.backgroundColor = ColorPalette.AppBgColor
+        outScrolllView		.backgroundColor = ColorPalette.AppBgColor
 		return 				outScrolllView
 		}()
 	

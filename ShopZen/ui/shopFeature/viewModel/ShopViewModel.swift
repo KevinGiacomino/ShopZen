@@ -17,18 +17,24 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     
     // MARK: - Private methods
     
-    //var apiProvider : APIProvider?
-    
+    /// Flag avoid duplicate process call, set to TRUE when a network call is called
+    private var isBusy = false
+        
+    /**
+	 Will be filled after requesting resources
+	 */
     private(set) var listOfCategory : [Category]!
         {
         didSet
             {
-            let vCategories = Categories(inListOfCategory: listOfCategory)
-            viewModelDelegate.configureCategoriesView(inListOfCategory: vCategories)
+            let vCategories 		= Categories(inListOfCategory: listOfCategory)
+            viewModelDelegate		.configureCategoriesView(inListOfCategory: vCategories)
             }
         }
 
-    /***/
+    /**
+	 Will be filled after requesting resources
+	 */
     private(set) var itemsWithCategory : ItemsWithCategory!
         {
         didSet
@@ -38,21 +44,9 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // Immediately push it to the view
             // --------------------
             print("listOfItem set HELLO")
-            viewModelDelegate.pushListOfItem(inListOfItem: itemsWithCategory )
-            viewModelDelegate.pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            viewModelDelegate	.pushListOfItem(inListOfItem: itemsWithCategory )
+            viewModelDelegate	.pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }
-        }
-    
-    
-    // MARK: - Consctrutor
-    
-    init
-        (
-        inAPIProvider : APIProvider
-        )
-        {
-        // TODO: CHECK IF WE CAN REMOVE IT
-        //apiProvider   = inAPIProvider
         }
     
     // MARK: - Public methods
@@ -60,12 +54,10 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     /***/
     override func onAttach()
         {
-            
-        viewModelDelegate.configureMainUI()
-        callListOfItems()
-
-        viewModelDelegate.configureNavBar()
-        viewModelDelegate.configureCollectionView()
+        viewModelDelegate	.configureMainUI()
+        viewModelDelegate	.configureNavBar()
+        viewModelDelegate	.configureCollectionView()
+        callListOfItems		( )
         }
 
 
@@ -82,13 +74,12 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 			return
 			}
 
-		let vItemDetailVc = ItemDetailViewController()
-        vItemDetailVc.modalPresentationStyle = .fullScreen
-		vItemDetailVc.viewModel.item = itemsWithCategory.listOfItem.first(where:{ $0.id == inItemId } )
-        viewModelDelegate.goToItemViewDetail( inVc : vItemDetailVc )
+		let vItemDetailVc 		= ItemDetailViewController()
+        vItemDetailVc			.modalPresentationStyle = .fullScreen
+		vItemDetailVc			.viewModel.item = itemsWithCategory.listOfItem.first(where:{ $0.id == inItemId } )
+        viewModelDelegate		.goToItemViewDetail( inVc : vItemDetailVc )
 		}
     
-   // private var currentCatId : Int = 0
     /**
      Called when user taps on a category
      Select the category and filter items by it
@@ -100,17 +91,17 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // ---------------
             // "All categories" button is tapped, display the whole list
             // ---------------
-            refreshData(inListOfItem: itemsWithCategory, inNbOfItem: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            refreshData		(inListOfItem: itemsWithCategory, inNbOfItem: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }
         else
             {
             // ---------------
             // A category is tapped, filter the list and push it to the view
             // ---------------
-            let vNewList = itemsWithCategory.listOfItem.filter { $0.categoryId == inCatId }
-            let vOutItems = ItemsWithCategory(inListOfItem: vNewList)
+            let vNewList	= itemsWithCategory.listOfItem.filter { $0.categoryId == inCatId }
+            let vOutItems 	= ItemsWithCategory(inListOfItem: vNewList)
             //itemsWithCategory = vOutItems
-            refreshData(inListOfItem: vOutItems, inNbOfItem: getNbOfItemStr(inNb: vNewList.count))
+            refreshData		(inListOfItem: vOutItems, inNbOfItem: getNbOfItemStr(inNb: vNewList.count))
             }
   
         }
@@ -118,33 +109,38 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     
     // MARK: - Toolbox
     
-    /***/
+    /**
+     Calling APIProvider to obtain the whole list of items
+     */
     private func callListOfItems()
         {
-		/*guard let vNetworkService = networkService else { return }
-        do
-            {
-            try vNetworkService .fetchListOfCategory { (inData) in self.listOfCategory = inData }
-            }
-        catch
-            {
-            print("ERROR: \(error.localizedDescription)")
-            }*/
-    
-    
-		APIProvider.fetchItems(completion: {
-			(inData) in
-			do
-				{
-                self.listOfCategory = try inData.get().1
-                self.itemsWithCategory = try inData.get().0
-                
-				}
-			catch
-				{
-                self.viewModelDelegate.popError( inErrorMsg: "TODO: ERROR ")
-				}
-			})
+        if( !isBusy )
+			{
+			isBusy = true
+			// Initalize the request
+			APIProvider.fetchItems(completion: {
+				// -----------
+				// A new set of data has been received
+				// -----------
+				(inData) in
+				self.isBusy = false
+				do
+					{
+					// --------------
+					// No error, assign the result to variables
+					// --------------
+					self		.listOfCategory 		= try inData.get().1
+					self		.itemsWithCategory 	= try inData.get().0
+					}
+				catch
+					{
+					// --------------
+					// Error handling, display an error
+					// --------------
+					self.viewModelDelegate.popError( inErrorMsg: "No items found")
+					}
+				})
+			}
         }
     
     /**
@@ -156,8 +152,8 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
         inNbOfItem      : String
         )
         {
-        viewModelDelegate	.pushListOfItem	(inListOfItem: 	inListOfItem	)
-        viewModelDelegate	.pushNbOfItems	(inNbOfItems: 	inNbOfItem		)
+        viewModelDelegate	.pushListOfItem	( inListOfItem: 	inListOfItem	)
+        viewModelDelegate	.pushNbOfItems	( inNbOfItems: 		inNbOfItem		)
         }
     
     /**
@@ -176,3 +172,7 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 //==============================================================================
 
  
+extension ShopViewModel
+	{
+    func setListOfCategoryToNil() { listOfCategory = nil }
+	}

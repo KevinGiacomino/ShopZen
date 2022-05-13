@@ -25,16 +25,16 @@ class ViewModelFactory
 		}()
     
     /// Instance of the APIProvider
-    private lazy var apiProvider : APIProvider =
+ /*   private lazy var apiProvider : APIProvider =
 		{
 		let outAPIProvider = APIProvider()
 		return outAPIProvider
-		}()
+		}()*/
     
     /// Instance of the ShopViewModel
     public lazy var shopViewModel : ShopViewModel =
 		{
-		let outVm = ShopViewModel(inAPIProvider: apiProvider)
+		let outVm = ShopViewModel()
 		return outVm
 		}()
     
