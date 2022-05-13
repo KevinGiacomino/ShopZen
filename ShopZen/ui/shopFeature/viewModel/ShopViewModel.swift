@@ -57,6 +57,7 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     
     // MARK: - Public methods
     
+    /***/
     override func onAttach()
         {
             
@@ -155,14 +156,17 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
         inNbOfItem      : String
         )
         {
-        viewModelDelegate.pushListOfItem(inListOfItem: inListOfItem)
-        viewModelDelegate.pushNbOfItems(inNbOfItems: inNbOfItem)
+        viewModelDelegate	.pushListOfItem	(inListOfItem: 	inListOfItem	)
+        viewModelDelegate	.pushNbOfItems	(inNbOfItems: 	inNbOfItem		)
         }
     
     /**
      Format the number of items String
      */
-    private func getNbOfItemStr( inNb : Int ) -> String
+    private func getNbOfItemStr
+		(
+		inNb : Int
+		) -> String
         {
         return "\(inNb) articles"
         }

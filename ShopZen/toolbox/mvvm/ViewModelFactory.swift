@@ -9,19 +9,22 @@ import Foundation
 
 /**
  Engine of the view model
+ Entry point to retrieve instance of each view model for this project
  */
 class ViewModelFactory
     {
-    
-   static let shared: ViewModelFactory =
+
+    // MARK: - Instance
+	
+	/// Instance of this class
+	static let shared: ViewModelFactory =
 		{
         let outInstance = ViewModelFactory()
         // setup code
         return outInstance
 		}()
     
-    private static var instance		: ViewModelFactory?
-    
+    /// Instance of the APIProvider
     private lazy var apiProvider : APIProvider =
 		{
 		let outAPIProvider = APIProvider()
@@ -42,33 +45,6 @@ class ViewModelFactory
 		return outVm
 		}()
 		
-	/*
-    init()
-        {
-        //apiProvider = APIProvider()
-        //shopViewModel = ShopViewModel(inAPIProvider: apiProvider! )
-        //itemDetailViewModel	= ItemDetailViewModel()
-        }*/
-    
-    /*public static func shared() -> ViewModelFactory
-        {
-        if let vInstance = instance
-            {
-            instance = ViewModelFactory()
-            return vInstance
-            }
-        return ViewModelFactory()
-        }*/
-    
-    /*public func getShopViewModel() -> ShopViewModel
-        {
-        return shopViewModel!
-        }
-        
-	  public func getItemDetailViewModel() -> ItemDetailViewModel
-        {
-        return itemDetailViewModel!
-        }*/
         
     } // end of extension --------------------------------------------------------------
 

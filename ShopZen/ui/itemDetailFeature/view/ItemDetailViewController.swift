@@ -2,7 +2,7 @@
 //  ItemDetailViewController.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import Foundation
@@ -19,6 +19,7 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 	    
     // MARK: - UI widgets
 	
+
 	/***/
 	private lazy var mainScrollView : UIScrollView =
 		{
@@ -32,11 +33,22 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
     private lazy var bgOverlay      : UIView =
         {
         let outView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+		outView.translatesAutoresizingMaskIntoConstraints = false
+
         outView.backgroundColor = .black
         outView.alpha   = 0.4
         return outView
         }()
     
+    /***/
+    private lazy var btnContainerView : UIView =
+		{
+		let outView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+		outView.translatesAutoresizingMaskIntoConstraints = false
+		outView.backgroundColor = .clear
+		return outView
+		}()
+		
     /***/
     private lazy var backBtn        : UIButton =
         {
@@ -76,7 +88,7 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
         outImg.translatesAutoresizingMaskIntoConstraints = false
         //outImg.backgroundColor = .white
         outImg.image = ImagePalette.kUrgentIco
-        outImg.setContentHuggingPriority(.defaultLow, for: .vertical)
+        //outImg.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         outImg.contentMode = .scaleAspectFill
         outImg.clipsToBounds = true
@@ -163,11 +175,11 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 		}()
        
 	/***/
-	private lazy var separationView : UIView	=
+	private lazy var descSeparatorView : UIView	=
 		{
-		let outView	= UIView()
+		let outView		= UIView()
 		outView			.translatesAutoresizingMaskIntoConstraints = false
-		outView.backgroundColor = .darkGray
+		outView			.backgroundColor = .darkGray
 		return outView
 		}()
        
@@ -216,20 +228,23 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
     /***/
     private lazy var shopToolbarView : UIToolbar =
         {
-        let outToolbar = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: self.view.frame.width, height: 44.0)))
-       // outToolbar.barStyle = .blackOpaque
-        outToolbar.isTranslucent = true
+        let outToolbar	 = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: self.view.frame.width, height: 44.0)))
+        outToolbar		.barStyle = .default
+        outToolbar		.isTranslucent = false
         //outToolbar.backgroundColor = ColorPalette.AccentColor
-            outToolbar.tintColor = ColorPalette.AccentColor
-        outToolbar.sizeToFit()
-               // Adding Button ToolBar
-        let vContactBtn =   UIBarButtonItem(image: UIImage(systemName: "mail"), style: .plain, target: self, action: nil)
-
-        let vSpaceBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-          
-        outToolbar.setItems([vSpaceBtn, vContactBtn], animated: false)
-        outToolbar.isUserInteractionEnabled = true
-        return outToolbar
+		outToolbar		.tintColor = ColorPalette.AccentColor
+		outToolbar		.barTintColor = .white
+        outToolbar		.sizeToFit()
+		   // Adding Button ToolBar
+        //let vContactBtn = UIBarButtonItem(image: UIImage(systemName: "mail"), style: .plain, target: self, action: #selector(onContactBtnTapped))
+       // let vContactBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(onContactBtnTapped))
+        let vContactBtn = UIBarButtonItem(image: UIImage(systemName: "mail")!, title: "Contactez", target: self, action: nil)
+        let vSpaceBtn 	= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+     
+		
+        outToolbar		.setItems([vSpaceBtn, vContactBtn], animated: false)
+        outToolbar		.isUserInteractionEnabled = true
+        return 			outToolbar
         }()
     
     
@@ -246,7 +261,7 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
         }
     
     /**
-     Called when users taps on the share button
+     Called when user taps on the share button
      Prevent the view model
      */
     @objc func onShareBtnTapped(sender: UIButton!)
@@ -254,8 +269,30 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
         ZenLog.d("ItemDetailViewController onShareBtnTapped")
         viewModel.onShareBtnTapped()
         }
-            
+        
+	/**
+	 Called whe user taps on the contact button from the UIToolbar
+	 Prevent the view model
+	 */
+    @objc func onContactBtnTapped(sender: UITabBarItem!)
+		{
+		ZenLog.d("ItemDetailViewController onContactBtnTapped")
+		viewModel.onContactBtnTapped()
+		}
+		
     // MARK: - From delegate (MVVM)
+
+	
+    lazy public var nbOfItemsBarBtn : UIBarButtonItem =
+        {
+        let outBarButton = UIBarButtonItem()
+        outBarButton.tintColor = .red
+        //outBarButton.action = #selector(onFilterTapped)
+       outBarButton.title                 = "97 articles"
+        return outBarButton
+        }()
+    
+    
 
 	/**
 	 See ItemDetailDelegate#configureItemView()
@@ -272,30 +309,31 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 		)
 		{
         ZenLog.d("ItemDetailViewController configureItemView")
+        navigationItem.leftBarButtonItem    = nbOfItemsBarBtn
 
 		//--------------
 		// Configure main view :
 		// --------------
 		view.backgroundColor 	= ColorPalette.AppBgColor
-		//view					.addSubview(mainScrollView,  anchors: [.leading(0), .trailing(0), .top(0), .bottom(0)])
-   //     mainScrollView.contentSize = CGSize(width: view.frame.width, height: 800.0)
-          //  mainScrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-                  
+		configureScrollView()
+
 		// --------------
 		// Configure image background view:
 		// --------------
         item_BgView            .loadImageWithUrl(inUrl: inImgURL)
-        view            .addSubview(item_BgView, anchors: [.leading(0), .trailing(0), .top(0), .height(view.frame.height / 4)])
+        contentView            .addSubview(item_BgView, anchors: [.leading(0), .trailing(0), .top(0), .height(view.frame.height / 4)])
        // mainScrollView			.addSubview(item_BgView, anchors: [.leading(0), .trailing(0), .top(0), .height(view.frame.height / 4)])
 	//	mainScrollView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
         // --------------
         // Configure back button view:
         // --------------
-        view.addSubview(backBtn, anchors: [.height(45), .width(45), .top(8), .leading(8)])
+        view.addSubview(btnContainerView, anchors: [.leading(0), .trailing(0), .top(0)])
+        //btnContainerView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+		btnContainerView.addSubview(backBtn, anchors: [.height(45), .width(45), .top(8), .leading(8), .bottom(-16)])
         // --------------
         // Configure share view:
         // --------------
-        view.addSubview(shareBtn, anchors: [.height(45), .width(45), .top(8)])
+        btnContainerView.addSubview(shareBtn, anchors: [.height(45), .width(45), .top(8), .bottom(-16)])
         shareBtn.leadingAnchor.constraint(equalTo: backBtn.trailingAnchor, constant: 12).isActive = true
             
         // --------------
@@ -305,70 +343,46 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 		// --------------
 		// Configure urgent icon view if necessary :
 		// --------------
-        view					.addSubview(item_urgentIconView, anchors: [.height(70), .width(70)])
-		item_urgentIconView	.topAnchor            .constraint(equalTo: item_BgView.topAnchor).isActive = true
-        item_urgentIconView	.trailingAnchor            .constraint(equalTo: item_BgView.trailingAnchor).isActive = true
-        view.bringSubviewToFront(item_urgentIconView)
 		item_urgentIconView	.isHidden = !inIsUrgent
+        setConstraintsFor_urgentIconView()
         // --------------
         // Configure category view :
         // --------------
         item_CategoryView.text = inCatName
-        view            .addSubview(item_CategoryView)
-        item_CategoryView    .bottomAnchor            .constraint(equalTo: item_BgView.bottomAnchor, constant: 12).isActive = true
-        item_CategoryView    .trailingAnchor            .constraint(equalTo: item_BgView.trailingAnchor, constant: -24).isActive = true
-        view.bringSubviewToFront(item_CategoryView)
+        setConstraintsFor_categoryView()
 
-            
-		// --------------
-		// Configure content view :
-		// --------------
-        view            .addSubview(scrollView, anchors: [.leading(0), .trailing(0), .bottom(0)])
-        scrollView            .topAnchor.constraint(equalTo: item_BgView.bottomAnchor, constant: 0).isActive = true
 
-        scrollView            .addSubview(contentView, anchors: [.leading(16), .trailing(-16), .top(0)])
-		//mainScrollView			.addSubview(contentView, anchors: [.leading(16), .trailing(-16)])
-            //contentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        contentView.heightAnchor.constraint(equalToConstant: 800).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-
-        //contentView.heightAnchor.constraint(equalToConstant: self.view.frame.height).isActive = true
-		//contentView			.widthAnchor.cons
 		// --------------
 		// Configure title view :
 		// --------------
 		item_TitleLabel.text 	= inTitle
-		contentView			.addSubview(item_TitleLabel, anchors: [.leading(0), .trailing(0), .top(24)])
+		contentView			.addSubview(item_TitleLabel, anchors: [.leading(16), .trailing(-16)])//, .top(24)])
+		item_TitleLabel		.topAnchor.constraint(equalTo: item_BgView.bottomAnchor, constant: 24).isActive = true
 		// --------------
-		// Configure price and date stack view :
+		// Configure price and date stack view:
 		// --------------
-		item_PriceLabel		    .text = inPrice //+ " - " + inCatName
+		item_PriceLabel		 .text = inPrice //+ " - " + inCatName
 		item_DateLabel			.text = inDate
-		contentView			    .addSubview(priceAndDateStackView, anchors: [.leading(0), .trailing(0)])
-		priceAndDateStackView	.topAnchor.constraint(equalTo: item_TitleLabel.bottomAnchor, constant: 16).isActive = true
+		setConstraintsFor_priceAndDateStackView()
 		// --------------
-		// Configure description seperation view :
+		// Configure description seperation view:
 		// --------------
-		contentView			    .addSubview(separationView, anchors: [.leading(0), .trailing(0), .height(1.0)])
-		separationView			.topAnchor.constraint(equalTo: priceAndDateStackView.bottomAnchor, constant: 24).isActive = true
+		setConstraintsFor_descSeparatorView()
 		// --------------
 		// Configure description title view :
 		// --------------
-		contentView			    .addSubview(descTitle, anchors: [.leading(0), .trailing(0)])
-		descTitle				.topAnchor.constraint(equalTo: separationView.bottomAnchor, constant: 16).isActive = true
+		setConstraintsFor_descTitle()
 		// --------------
-		// Configure description view :
+		// Configure description view:
 		// --------------
 		item_DescView			.text = inDesc
-        contentView			    .addSubview(item_DescView, anchors: [.leading(0), .trailing(0)])
-		item_DescView			.topAnchor.constraint(equalTo: descTitle.bottomAnchor, constant: 16).isActive = true
-
+        setConstraintsFor_descView()
 		//item_DescView			.widthAnchor.constraint(greaterThanOrEqualTo:  mainScrollView.widthAnchor).isActive = true
             
         // --------------
         // Configure shop toolbar:
         // --------------
-        view.addSubview(shopToolbarView, anchors: [.leading(0), .trailing(0), .bottom(0)])
+        setConstraintsFor_shopToolbarView()
             
 		// --------------
 		// Configure shop button :
@@ -377,7 +391,83 @@ class ItemDetailViewController        : BaseViewController<ItemDetailDelegate, I
 		shopBtn					.topAnchor.constraint(equalTo: item_DescView.bottomAnchor, constant: 16).isActive = true*/
 
 		}
+    		
+    // MARK: - Toolbox methods
+
+	/**
+	 Configure the scroll view
+	 */
+    private func configureScrollView()
+		{
+		let vMargins 	= view.layoutMarginsGuide
+		view			.addSubview(scrollView)
+		scrollView		.addSubview(contentView)
+		scrollView		.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		scrollView		.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		scrollView		.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		scrollView		.bottomAnchor.constraint(equalTo: vMargins.bottomAnchor).isActive = true
+		contentView	.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+		contentView	.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+		contentView	.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+		contentView	.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+		contentView	.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+		}
+		
+    /***/
+    func setConstraintsFor_urgentIconView()
+		{
+		 view					.addSubview(item_urgentIconView, anchors: [.height(70), .width(70)])
+		item_urgentIconView	.topAnchor            		.constraint(equalTo: item_BgView.topAnchor).isActive = true
+        item_urgentIconView	.trailingAnchor           	.constraint(equalTo: item_BgView.trailingAnchor).isActive = true
+      
+        //view.bringSubviewToFront(item_urgentIconView)
+		}
     
+    /***/
+    func setConstraintsFor_categoryView()
+		{
+		view            		.addSubview(item_CategoryView)
+		item_CategoryView    	.bottomAnchor            .constraint(equalTo: item_BgView.bottomAnchor, constant: 12).isActive = true
+        item_CategoryView    	.trailingAnchor          .constraint(equalTo: item_BgView.trailingAnchor, constant: -24).isActive = true
+        //view.bringSubviewToFront(item_CategoryView)
+		}
+		
+	/***/
+	func setConstraintsFor_priceAndDateStackView()
+		{
+		contentView			 .addSubview(priceAndDateStackView, anchors: [.leading(16), .trailing(-16)])
+		priceAndDateStackView	.topAnchor.constraint(equalTo: item_TitleLabel.bottomAnchor, constant: 16).isActive = true
+		}
+		
+	/***/
+	func setConstraintsFor_descSeparatorView()
+		{
+		contentView			    .addSubview(descSeparatorView, anchors: [.leading(16), .trailing(-16), .height(1.0)])
+		descSeparatorView			.topAnchor.constraint(equalTo: priceAndDateStackView.bottomAnchor, constant: 24).isActive = true
+		}
+	
+	/***/
+	func setConstraintsFor_descTitle()
+		{
+		contentView			.addSubview(descTitle, anchors: [.leading(16), .trailing(-16)])
+		descTitle				.topAnchor.constraint(equalTo: descSeparatorView.bottomAnchor, constant: 16).isActive = true
+		}
+		
+	/***/
+	func setConstraintsFor_descView()
+		{
+		// margin bottom : 44 to respect the height of the UIToolbar
+        contentView			.addSubview(item_DescView, anchors: [.leading(16), .trailing(-16), .bottom(-44)])
+		item_DescView			.topAnchor.constraint(equalTo: descTitle.bottomAnchor, constant: 16).isActive = true
+		}
+		
+	/***/
+	func setConstraintsFor_shopToolbarView()
+		{
+		view.addSubview(shopToolbarView, anchors: [.leading(0), .trailing(0), .bottom(0)])
+		}
+		
+		
     /**
      See ItemDetailDelegate#closeThisView()
      */

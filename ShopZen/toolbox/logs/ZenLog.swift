@@ -2,7 +2,7 @@
 //  ZenLog.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import Foundation
@@ -18,12 +18,12 @@ import os
  class ZenLog
 	{
              
-    // MARK: - CLASS VARIABLES
+    // MARK: - Class variables
 	
     static var kForceLog = false
     
         
-    // MARK: - PUBLIC METHODS:
+    // MARK: - Public methods
 	
     /**
 	 E.g:     D.c("test print")
@@ -69,7 +69,7 @@ import os
 		
 		- parameter inLogs	: A list of log to display
 	 */
-    public static func c
+    public static func d
 		(
 		_ inLogs			: String...
 		)
@@ -111,6 +111,7 @@ import os
         os_log("‼️: %s", inLog)
 		#endif
         }
+        
 	} // end of class --------------------------------------------------------------
 
 //==============================================================================

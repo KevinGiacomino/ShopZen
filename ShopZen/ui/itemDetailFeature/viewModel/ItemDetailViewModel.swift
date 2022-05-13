@@ -2,7 +2,7 @@
 //  ItemDetailViewModel.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import Foundation
@@ -59,12 +59,21 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
     
     /**
      User taps on the back button
-     XXX
+     ❌ UI ONLY : Method not implemented for this demo
      */
     public func onShareBtnTapped()
         {
         viewModelDelegate.shareItemToSocialNetwork()
         }
+        
+	/**
+	 User taps on the contact button
+	 ❌ UI ONLY : Method not implemented for this demo
+	 */
+	public func onContactBtnTapped()
+		{
+		
+		}
         
     // MARK: - Private methods
 

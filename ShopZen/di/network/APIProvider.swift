@@ -2,7 +2,7 @@
 //  Github.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ class APIProvider
 		let vCategories 	    = APIProvider.fetchListOfCategory()
 		let vItems 			    = APIProvider.fetchListOfItem()
     
-		let vParralled 			= Publishers.Zip(vCategories, vItems)
+		let vReq 				= Publishers.Zip(vCategories, vItems)
 		  //.receive(on: RunLoop.main, options: nil)
 			.sink(receiveCompletion: { (suscriberCompletion) in
 			   switch suscriberCompletion {
@@ -48,8 +48,7 @@ class APIProvider
 		RunLoop.main.run(until: Date(timeIntervalSinceNow: 1))
 		}
     
-  
-    
+
 	} // end of class --------------------------------------------------------------
 
 //==============================================================================

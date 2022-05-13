@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.backgroundColor = UIColor(named: "appPrimaryColor")
+            appearance.backgroundColor = ColorPalette.AccentColor
             //appearance.shadowColor =  UIColor.lightGray.cgColor
             //appearance.backgroundColor = UIColor(red: 0.0/255.0, green: 125/255.0, blue: 0.0/255.0, alpha: 1.0)
             UINavigationBar.appearance().standardAppearance = appearance

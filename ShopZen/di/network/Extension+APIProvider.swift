@@ -2,7 +2,7 @@
 //  Extension+apipROVIDER.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import UIKit
@@ -14,8 +14,9 @@ import Combine
  */
 extension APIProvider
 	{
-	/**
 	
+	/**
+	 Request server to obtain the list of item
 	 */
 	static func fetchListOfItem() -> AnyPublisher<[Item], Error>
 		{
@@ -27,13 +28,11 @@ extension APIProvider
 		catch
 			{
 			return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
-
 			}
-		
 		}
 		
 	/**
-	
+	 Request server to obtain the list of category
 	 */
 	static func fetchListOfCategory() -> AnyPublisher<[Category], Error>
 		{
@@ -45,23 +44,29 @@ extension APIProvider
 		catch
 			{
 			return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
-
 			}
 		}
 
     /**
+     Merge each item with his associated category.
+     Sets the "categoryName" to Item object with the name of the founded category
      
+        - parameter inItems : 		The list of items to merge
+        - parameter inCategories :	The list of categories to retrieve the associated category
+	
+	    - Returns  The formatted list
      */
     public static func mergeItemsWithCategory
         (
-        inItems         : [Item],
-        inCategories    : [Category]
+        inItems : 					[Item],
+        inCategories : 				[Category]
         ) -> ItemsWithCategory
         {
             
-        let outItems = inItems.map { item -> Item in
-        guard let vCategory = inCategories.first(where: { $0.id == item.categoryId }) else { return item }
-            var vItem = item
+        let outItems = inItems.map
+			{ item -> Item in
+			guard let vCategory = inCategories.first(where: { $0.id == item.categoryId }) else { return item }
+			var vItem = item
             vItem.categoryName = vCategory.name
             return vItem
             }
@@ -81,4 +86,6 @@ extension APIProvider
             .eraseToAnyPublisher()
 		}
     
-    }
+    } // end of extension --------------------------------------------------------------
+
+//=============================================================================

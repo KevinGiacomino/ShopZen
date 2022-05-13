@@ -24,6 +24,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     
     // MARK: - UI Widgets
 	
+	
+	
 	lazy public var categoryScrollView : UIScrollView =
 		{
 		let outScrollView = UIScrollView()
@@ -156,6 +158,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
      */
     func configureMainUI()
         {
+        
         view.backgroundColor                = ColorPalette.AppBgColor
             
 		categoryScrollView.addSubview(categoryStackView)
@@ -289,7 +292,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inListOfItem : ItemsWithCategory
 		)
         {
-        ZenLog.c("pushListOfItem")
+        ZenLog.d("pushListOfItem")
 
         DispatchQueue.main.async
             {
@@ -304,7 +307,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
      */
     func pushNbOfItems( inNbOfItems : String )
         {
-        ZenLog.c("pushNbOfItems\(inNbOfItems)")
+        ZenLog.d("pushNbOfItems \(inNbOfItems)")
         nbOfItemsBarBtn.title = inNbOfItems
         }
         
@@ -316,7 +319,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inErrorMsg : String
 		)
 		{
-        ZenLog.c("popError\(inErrorMsg)")
+        ZenLog.d("popError\(inErrorMsg)")
 
 		}
 		
@@ -325,7 +328,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 	 */
 	func goToItemViewDetail( inVc : UIViewController )
 		{
-		ZenLog.c("goToItemViewDetail")
+		ZenLog.d("goToItemViewDetail")
+		//self.navigationController?.pushViewController(inVc, animated: true)
 		self.present(inVc, animated: true, completion: nil)
 		}
 

@@ -20,13 +20,18 @@ import UIKit
     
     /**
      Configure the info view which holds the number of items
+		
+       - parameter inListOfCategory: The list of category
      */
-    func configureCategoriesView      ( inListOfCategory : Categories )
+    func configureCategoriesView
+		(
+		inListOfCategory : Categories
+		)
     
     /**
     Configure the UI for the navigation bar
 	 */
-    func configureNavBar		(	)
+    func configureNavBar		 ( 	)
     
     /**
      Configure the UICollectionView which holds items
@@ -49,7 +54,10 @@ import UIKit
      
        - parameter inNbOfItems:     The value of the number of items
      */
-    func pushNbOfItems( inNbOfItems : String )
+    func pushNbOfItems
+		(
+		inNbOfItems : String
+		)
     
     /**
      Prevent the view that an error happened

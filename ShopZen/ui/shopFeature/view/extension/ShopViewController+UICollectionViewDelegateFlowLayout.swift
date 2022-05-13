@@ -2,11 +2,14 @@
 //  ShopViewController+UICollectionViewDelegateFlowLayout.swift
 //  ShopZen
 //
-//  Created by Spirtech on 10/05/2022.
+//  Created by Kevin on 10/05/2022.
 //
 
 import UIKit
 
+/**
+
+ */
 extension ShopViewController: UICollectionViewDelegateFlowLayout
     {
     func collectionView(_ collectionView: UICollectionView,

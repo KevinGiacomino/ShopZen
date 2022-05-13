@@ -30,8 +30,8 @@ class ItemsWithCategory : NSObject
         // TODO : REVOIR CE FILTRE,
         // SI URGENT > TRIER LES URGENT PAR DATE
         self.listOfItem = inListOfItem.sorted { (lhs, rhs) in
-            var vLhs = lhs
-            var vRhs = rhs
+            let vLhs = lhs
+            let vRhs = rhs
             // First if item is urgent sort it
             if vLhs.isUrgent == true { // <1>
                   return vLhs.isUrgent

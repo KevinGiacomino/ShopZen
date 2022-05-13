@@ -157,9 +157,9 @@ class ItemCollectionViewCell : UICollectionViewCell
         // ------------
         //
         // ------------
-        title.topAnchor            .constraint(equalTo: categoryName.bottomAnchor, constant: 4.0).isActive = true
-        title.leadingAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        title.trailingAnchor    .constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        title.topAnchor           		 .constraint(equalTo: categoryName.bottomAnchor, constant: 4.0).isActive = true
+        title.leadingAnchor       		 .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+        title.trailingAnchor    		.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
         //label.bottomAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
 
         price.topAnchor            .constraint(equalTo: title.bottomAnchor, constant: 16.0).isActive = true

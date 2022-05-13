@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /**
  Helper class to decode any Data into this Object representation
  */

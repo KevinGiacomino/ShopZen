@@ -18,7 +18,7 @@ struct Item : Decodable
     let id, categoryId                      : Int
     let title, description, creationDate    : String
     let price                               : Double
-    let imagesUrl                           : [String:String] //ImageUrl//[String:String] // ImageUrl
+    let imagesUrl                           : [String:String] 
     let isUrgent                            : Bool
     
     var categoryName                        : String?
