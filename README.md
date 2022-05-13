@@ -15,7 +15,7 @@ ShopZen is the first iOS app that lets you easily recover the best items
 <!-- BUILD WITH -->
 ### Built With
 
-Tawny is an Android/Kotlin application built with:
+ShopZen is an iOS/Swift application built with:
 
 * [XCode](https://developer.apple.com/xcode/)
 * [Swift](https://www.apple.com/fr/swift/)
