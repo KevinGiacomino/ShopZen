@@ -75,10 +75,11 @@ class ShopViewModelTests: XCTestCase
      */
     func test_itemsWithCategoryPropertySetWithEmptyList()
         {
-        let vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (ItemsWithCategory(inListOfItem: []), [])
+        let vEmptyItemsWithCat = ItemsWithCategory(inListOfItem: [])
+        let vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (vEmptyItemsWithCat, [])
         MockAPIProvider.reqResult = .success(vCallResult)
         viewModel.callListOfItems(  )
-        XCTAssertEqual(viewModel.itemsWithCategory, ItemsWithCategory(inListOfItem: []))
+        XCTAssertEqual(viewModel.itemsWithCategory, vEmptyItemsWithCat)
         }
     
     

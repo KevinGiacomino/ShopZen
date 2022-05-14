@@ -11,7 +11,6 @@
 		0A1650002826B60E00DE9FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A164FFF2826B60E00DE9FA6 /* SceneDelegate.swift */; };
 		0A1650072826B60F00DE9FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A1650062826B60F00DE9FA6 /* Assets.xcassets */; };
 		0A16500A2826B60F00DE9FA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A1650082826B60F00DE9FA6 /* LaunchScreen.storyboard */; };
-		0A1650152826B60F00DE9FA6 /* ShopZenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650142826B60F00DE9FA6 /* ShopZenTests.swift */; };
 		0A16501F2826B60F00DE9FA6 /* ShopZenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16501E2826B60F00DE9FA6 /* ShopZenUITests.swift */; };
 		0A1650212826B60F00DE9FA6 /* ShopZenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650202826B60F00DE9FA6 /* ShopZenUITestsLaunchTests.swift */; };
 		0A1650332826BAC800DE9FA6 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1650322826BAC800DE9FA6 /* BaseViewModel.swift */; };
@@ -41,6 +40,7 @@
 		0A5AC39F282C4588009157FA /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC39E282C4588009157FA /* UIButton+Extension.swift */; };
 		0A5AC3A2282FCBD0009157FA /* ItemDetailViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3A1282FCBD0009157FA /* ItemDetailViewController+Extension.swift */; };
 		0A5AC3A5282FDD27009157FA /* MockAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */; };
+		0A5AC3AB282FFD81009157FA /* ItemDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */; };
 		81203773282BB66500286457 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203772282BB66500286457 /* ColorPalette.swift */; };
 		81203775282BF18300286457 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203774282BF18300286457 /* DateHelper.swift */; };
 		81203778282BF88A00286457 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203777282BF88A00286457 /* Date+Extension.swift */; };
@@ -58,7 +58,6 @@
 		8135FA01282EAE3B00D3A22C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8135FA00282EAE3B00D3A22C /* UIViewController+Extension.swift */; };
 		819233F1282ABEC500A6BEA7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819233F0282ABEC500A6BEA7 /* APIClient.swift */; };
 		819233F3282AC43F00A6BEA7 /* APIProvider+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819233F2282AC43F00A6BEA7 /* APIProvider+Extenstion.swift */; };
-		81BD2C95282D52EB00E5FEDC /* ItemsWithCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD2C94282D52EB00E5FEDC /* ItemsWithCategoryTests.swift */; };
 		81BD2C97282D637300E5FEDC /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD2C96282D637300E5FEDC /* UIBarButtonItem+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		0A1650092826B60F00DE9FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A16500B2826B60F00DE9FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A1650102826B60F00DE9FA6 /* ShopZenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopZenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A1650142826B60F00DE9FA6 /* ShopZenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopZenTests.swift; sourceTree = "<group>"; };
 		0A16501A2826B60F00DE9FA6 /* ShopZenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopZenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A16501E2826B60F00DE9FA6 /* ShopZenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopZenUITests.swift; sourceTree = "<group>"; };
 		0A1650202826B60F00DE9FA6 /* ShopZenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopZenUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -118,6 +116,7 @@
 		0A5AC39E282C4588009157FA /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		0A5AC3A1282FCBD0009157FA /* ItemDetailViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDetailViewController+Extension.swift"; sourceTree = "<group>"; };
 		0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIProvider.swift; sourceTree = "<group>"; };
+		0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewModelTests.swift; sourceTree = "<group>"; };
 		81203772282BB66500286457 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		81203774282BF18300286457 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		81203777282BF88A00286457 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -135,7 +134,6 @@
 		8135FA00282EAE3B00D3A22C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		819233F0282ABEC500A6BEA7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		819233F2282AC43F00A6BEA7 /* APIProvider+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIProvider+Extenstion.swift"; sourceTree = "<group>"; };
-		81BD2C94282D52EB00E5FEDC /* ItemsWithCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsWithCategoryTests.swift; sourceTree = "<group>"; };
 		81BD2C96282D637300E5FEDC /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,8 +202,6 @@
 			children = (
 				8135F9FD282E542700D3A22C /* objects */,
 				8135F9FC282E541F00D3A22C /* viewModel */,
-				0A1650142826B60F00DE9FA6 /* ShopZenTests.swift */,
-				81BD2C94282D52EB00E5FEDC /* ItemsWithCategoryTests.swift */,
 			);
 			path = ShopZenTests;
 			sourceTree = "<group>";
@@ -389,6 +385,23 @@
 			path = old;
 			sourceTree = "<group>";
 		};
+		0A5AC3A8282FFD58009157FA /* shopFeature */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */,
+				8135F9FA282E541A00D3A22C /* ShopViewModelTests.swift */,
+			);
+			path = shopFeature;
+			sourceTree = "<group>";
+		};
+		0A5AC3A9282FFD6C009157FA /* itemDetailFeature */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */,
+			);
+			path = itemDetailFeature;
+			sourceTree = "<group>";
+		};
 		81203776282BF19A00286457 /* helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,8 +467,8 @@
 		8135F9FC282E541F00D3A22C /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8135F9FA282E541A00D3A22C /* ShopViewModelTests.swift */,
-				0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */,
+				0A5AC3A9282FFD6C009157FA /* itemDetailFeature */,
+				0A5AC3A8282FFD58009157FA /* shopFeature */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -649,8 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81BD2C95282D52EB00E5FEDC /* ItemsWithCategoryTests.swift in Sources */,
-				0A1650152826B60F00DE9FA6 /* ShopZenTests.swift in Sources */,
+				0A5AC3AB282FFD81009157FA /* ItemDetailViewModelTests.swift in Sources */,
 				8135F9FB282E541A00D3A22C /* ShopViewModelTests.swift in Sources */,
 				0A5AC3A5282FDD27009157FA /* MockAPIProvider.swift in Sources */,
 			);

@@ -1,14 +1,13 @@
 //
-//  ShopZenTests.swift
+//  ItemDetailViewModelTests.swift
 //  ShopZenTests
 //
-//  Created by Kevin on 07/05/2022.
+//  Created by Kevin on 14/05/2022.
 //
 
 import XCTest
-@testable import ShopZen
 
-class ShopZenTests: XCTestCase {
+class ItemDetailViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
