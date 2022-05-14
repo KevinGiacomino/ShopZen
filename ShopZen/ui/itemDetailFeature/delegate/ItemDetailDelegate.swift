@@ -46,6 +46,11 @@ import Foundation
      */
     func shareItemToSocialNetwork()
     
+    /**
+     Open the client mail
+     */
+    func openMailToContactSeller()
+    
     } // end of extension --------------------------------------------------------------
 
 //==============================================================================

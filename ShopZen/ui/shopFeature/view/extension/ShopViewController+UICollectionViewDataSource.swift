@@ -7,7 +7,10 @@
 
 import UIKit
 
-/***/
+/**
+ Extension for ShopViewController
+ Holds the UICollectionViewDataSource
+ */
 extension ShopViewController: UICollectionViewDataSource
     {
     /***/
@@ -20,17 +23,16 @@ extension ShopViewController: UICollectionViewDataSource
         {
         let outCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCollectionViewCell
         // Ensure than an item exists at indexPath
-        guard var vItem = mItems?[indexPath.row] else { return outCell }
+        guard let vItem = mItems?[indexPath.row] else { return outCell }
         // Set image
-        if let vImgUrlStr = vItem.imagesUrl[ AppKeys.kThumb ],
+        if let vImgUrlStr = vItem.imagesUrl[ AppStrings.kThumb ],
            let vImgUrl = URL(string: vImgUrlStr)
             {
             outCell.img.loadImageWithUrl( inUrl: vImgUrl)
-
             }
         else
             {
-            outCell.img.image = UIImage(named: AppKeys.kDefaultImg )
+            outCell.img.image = UIImage(named: AppStrings.kDefaultImg )
             }
         // Set title
         outCell.title.text = vItem.title
@@ -42,34 +44,8 @@ extension ShopViewController: UICollectionViewDataSource
         outCell.categoryName.text = vItem.categoryName
         return outCell
         }
+    
     } // end of class --------------------------------------------------------------
 
 //==============================================================================
 
-/*
-extension ShopViewController: UICollectionViewDataSource
-    {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-        {
-        return 9
-        //return items.count // How many cells to display
-        }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-        {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ItemCollectionViewCell
-        //cell.label.text = items[indexPath.row]
-        return cell
-        }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        print("viewWillTransition")
-        super.viewWillTransition(to: size, with: coordinator)
-        guard let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        flowLayout.invalidateLayout()
-    }
-    
-    }
-*/

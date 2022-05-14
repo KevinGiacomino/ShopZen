@@ -10,10 +10,17 @@ import Combine
 import UIKit
 
 
+protocol APIProviderProtocol
+    {
+    static func fetchItems( completion : @escaping (Result<(ItemsWithCategory, [Category]), Error>) -> () )
+    //static func fetchListOfItem() -> AnyPublisher<[Item], Error>
+   // static func fetchListOfCategory() -> AnyPublisher<[Category], Error>
+    }
+
 /**
  
  */
-class APIProvider
+class APIProvider : APIProviderProtocol
 	{
 		
     // MARK: - Class variables

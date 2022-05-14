@@ -35,8 +35,8 @@ struct APIClient
         return URLSession.shared
             .dataTaskPublisher(for: request)
             .tryMap { result -> Response<T> in
-                let value = try decoder.decode(T.self, from: result.data)
-                return Response(value: value, response: result.response)
+                let outValue = try decoder.decode(T.self, from: result.data)
+                return Response(value: outValue, response: result.response)
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

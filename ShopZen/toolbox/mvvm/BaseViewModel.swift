@@ -17,7 +17,7 @@ public class BaseViewModel< Delegate : BaseProtocol >
     private lazy var privDelegate : Delegate? = nil
     
     /// Retrieve the Delegate from outside of this class
-    public lazy var viewModelDelegate : Delegate  = { return privDelegate! }()
+    public lazy var viewModelDelegate : Delegate?  = { return privDelegate }()
         
     // MARK: - CONSTRUCTOR
     
@@ -43,16 +43,6 @@ public class BaseViewModel< Delegate : BaseProtocol >
         viewModelDelegate = inDelegate
         }
         
-    
-    /**
-     
-     - Returns: The delegate attached to this presenter
-     */
-    /*public func getDelegate() -> Delegate
-        {
-        return delegate!
-        }*/
-    
     } // end of class --------------------------------------------------------------
 
 //==============================================================================

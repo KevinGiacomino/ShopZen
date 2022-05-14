@@ -196,7 +196,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 	 */
     func configureNavBar()
         {
-        navigationItem                      .title = AppKeys.kShopTitle
+        navigationItem                      .title = AppStrings.kShopTitle
         navigationItem.leftBarButtonItem    = nbOfItemsBarBtn
         }
     
@@ -285,7 +285,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		)
 		{
         ZenLog.d("popError\(inErrorMsg)")
-
+        popDialog(inTitle: AppStrings.kErrorTitle, inMsg: AppStrings.kUnknownItem, inWithOkBtn: true)
 		}
 		
 	/**
@@ -297,19 +297,15 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		//self.navigationController?.pushViewController(inVc, animated: true)
 		self.present(inVc, animated: true, completion: nil)
 		}
-
+    
+    // MARK: - Methods from Base (View Model)
     
     /***/
-    func displayWaitingAnimation()
-        {
-        
-        }
+    func displayWaitingAnimation() {}
         
         
 	/***/
-    func hideWaitingAnimation()
-        {
-        }
+    func hideWaitingAnimation(){}
     
 	/***/
     override func bindViewModelToView() -> ShopViewModel

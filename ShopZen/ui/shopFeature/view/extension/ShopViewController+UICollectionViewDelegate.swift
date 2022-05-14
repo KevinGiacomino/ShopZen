@@ -18,8 +18,6 @@ extension ShopViewController: UICollectionViewDelegate
 		{
 		ZenLog.d("User tapped on item \(indexPath.row)")
 		let vItem 	= mItems?[indexPath.row]
-				ZenLog.d("vItemId : \(vItem?.title)")
-
         viewModel.onItemTapped( inItemId: vItem?.id ?? -1 )
 		}
 	}

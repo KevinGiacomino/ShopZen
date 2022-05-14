@@ -18,7 +18,7 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout
         {
         if let vTitle = mItems?[indexPath.row].title
             {
-            if UIDevice.current.orientation.isLandscape
+           /* if UIDevice.current.orientation.isLandscape
                 {
                 let contentHorizontalSpaces = collectionFlowLayout.minimumInteritemSpacing
                 + collectionFlowLayout.sectionInset.left
@@ -47,6 +47,17 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout
                 return CGSize(width: newCellWidth, height: newHeight)
                 }
 
+            }*/
+            
+            let contentHorizontalSpaces = collectionFlowLayout.minimumInteritemSpacing
+            + collectionFlowLayout.sectionInset.left
+            + collectionFlowLayout.sectionInset.right
+            let newCellWidth = (collectionView.bounds.width - contentHorizontalSpaces) / 2
+            let newHeight = ItemCollectionViewCell.getProductHeightForWidth(props: vTitle, width: newCellWidth)
+            
+
+            //let newHeight = 250.0
+            return CGSize(width: newCellWidth, height: newHeight)
             }
 
         return CGSize(width: 0, height: 0)

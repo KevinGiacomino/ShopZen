@@ -10,7 +10,10 @@ import Foundation
 import Foundation
 import Combine
 
-/***/
+/**
+ View model for Item Detail Feature
+ Holds the logic of the ItemDetailViewController
+ */
 class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
     {
     
@@ -24,11 +27,11 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
 	override func onAttach()
 		{
 		if let vItem = item,
-		   let vImgUrlStr = vItem.imagesUrl[AppKeys.kThumb],
+		   let vImgUrlStr = vItem.imagesUrl[AppStrings.kThumb],
 			let vImgUrl = URL(string:vImgUrlStr),
 			let vCatName	= vItem.categoryName
 			{
-            viewModelDelegate.configureItemView(
+            viewModelDelegate?.configureItemView(
 				inImgURL	: vImgUrl,
 				inIsUrgent	: vItem.isUrgent,
 				inTitle		: vItem.title,
@@ -43,7 +46,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
             // ----------------
             // An error happened, immediately close the view
             // ----------------
-            viewModelDelegate.closeThisView()
+            viewModelDelegate?.closeThisView()
 			}
 		
 		}
@@ -54,7 +57,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
      */
     public func onBackBtnTapped()
         {
-        viewModelDelegate.closeThisView()
+        viewModelDelegate?.closeThisView()
         }
     
     /**
@@ -63,7 +66,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
      */
     public func onShareBtnTapped()
         {
-        viewModelDelegate.shareItemToSocialNetwork()
+        viewModelDelegate?.shareItemToSocialNetwork()
         }
         
 	/**
@@ -72,7 +75,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
 	 */
 	public func onContactBtnTapped()
 		{
-		
+        viewModelDelegate?.openMailToContactSeller()
 		}
         
     // MARK: - Private methods
