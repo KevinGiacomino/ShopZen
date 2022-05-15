@@ -9,7 +9,9 @@ import XCTest
 import Combine
 @testable import ShopZen
 
-/***/
+/**
+ Holds all test case for the ShopViewModel class
+ */
 class ShopViewModelTests: XCTestCase
 	{
     // MARK: - Class variables
@@ -48,9 +50,12 @@ class ShopViewModelTests: XCTestCase
      */
 	func test_listOfCategoryPropertySetWithEmptyList()
 		{
+        // do
         let vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (ItemsWithCategory(inListOfItem: []), [])
         MockAPIProvider.reqResult = .success(vCallResult)
+        // when
         viewModel.callListOfItems(  )
+        // then
 		XCTAssertEqual(viewModel.listOfCategory, [])
 		}
 		
@@ -61,11 +66,14 @@ class ShopViewModelTests: XCTestCase
      */
     func test_listOfCategoryPropertySetWithNotEmptyList()
         {
+        // do
         var vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (ItemsWithCategory(inListOfItem: []), [])
-        let vListToTest = getMockedCategoryList()
+        let vListToTest = getStubbedCategoryList()
         vCallResult.1 = vListToTest
         MockAPIProvider.reqResult = .success(vCallResult)
+        // when
         viewModel.callListOfItems(  )
+        // then
         XCTAssertEqual(viewModel.listOfCategory, vListToTest)
         }
 
@@ -75,10 +83,13 @@ class ShopViewModelTests: XCTestCase
      */
     func test_itemsWithCategoryPropertySetWithEmptyList()
         {
+        // do
         let vEmptyItemsWithCat = ItemsWithCategory(inListOfItem: [])
         let vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (vEmptyItemsWithCat, [])
         MockAPIProvider.reqResult = .success(vCallResult)
+        // when
         viewModel.callListOfItems(  )
+        // zen
         XCTAssertEqual(viewModel.itemsWithCategory, vEmptyItemsWithCat)
         }
     
@@ -89,11 +100,14 @@ class ShopViewModelTests: XCTestCase
      */
     func test_itemsWithCategoryPropertySetWithNotEmptyList()
         {
+        // do
         var vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (ItemsWithCategory(inListOfItem: []), [])
-        let vToTest = getMockedItemsWithCat()
+        let vToTest = getStubbedItemsWithCat()
         vCallResult.0 = vToTest
         MockAPIProvider.reqResult = .success(vCallResult)
+        // when
         viewModel.callListOfItems(  )
+        // then
         XCTAssertEqual(viewModel.itemsWithCategory, vToTest)
         }
     
@@ -108,11 +122,11 @@ class ShopViewModelTests: XCTestCase
      */
     func test_listOfCategoryPropertyNotSet()
         {
-        // Simulate an error during the API call
+        // do
         MockAPIProvider.reqResult = .failure(NSError(domain: "", code: -1))
-        // Call the API
+        // when
         viewModel.callListOfItems()
-        // Check result
+        // then
         XCTAssertEqual(viewModel.listOfCategory, nil)
         }
 		
@@ -123,45 +137,14 @@ class ShopViewModelTests: XCTestCase
      */
     func test_itemsWithCategoryPropertyNotSet()
         {
-        // Simulate an error during the API call
+        // do
         MockAPIProvider.reqResult = .failure(NSError(domain: "", code: -1))
-        // Call the API
+        // when
         viewModel.callListOfItems()
-        // Check result
+        // then
         XCTAssertEqual(viewModel.itemsWithCategory, nil)
         }
-    
-    // MARK: - Toolbox
-    
-    /**
-     Gets a fake list of category
-     */
-    private func getMockedCategoryList() -> [ShopZen.Category]
-        {
-        var outCategories : [ShopZen.Category] = []
-        let vCategoryA = Category(id: 1, name: "categoryA")
-        let vCategoryB = Category(id: 2, name: "categoryB")
-        outCategories.append(vCategoryA)
-        outCategories.append(vCategoryB)
-        return outCategories
-        }
-
-    
-    /**
-     Gets a fake list of items
-     */
-    private func getMockedItemsWithCat() -> ItemsWithCategory
-        {
-        var outItemsWithCat : ItemsWithCategory = ItemsWithCategory(inListOfItem: [])
-        var vListOfItems :  [Item] = []
-        let vItemA = Item(id: 1, categoryId: 1, title: "itemA", description: "descA", creationDate: "", price: 10.0, imagesUrl: ["" : ""], isUrgent: false)
-        let vItemB = Item(id: 1, categoryId: 1, title: "itemB", description: "descB", creationDate: "", price: 10.0, imagesUrl: ["": ""], isUrgent: true)
-        vListOfItems.append(vItemA)
-        vListOfItems.append(vItemB)
-        outItemsWithCat.listOfItem = vListOfItems
-        return outItemsWithCat
-        }
-    
+  
 	} // end of class --------------------------------------------------------------
 
 //==============================================================================

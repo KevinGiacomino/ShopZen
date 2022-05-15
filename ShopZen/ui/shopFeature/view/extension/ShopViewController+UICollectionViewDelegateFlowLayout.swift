@@ -8,7 +8,8 @@
 import UIKit
 
 /**
-
+ Extension for ShopViewController
+ Holds UICollectionViewDelegateFlowLayout
  */
 extension ShopViewController: UICollectionViewDelegateFlowLayout
     {
@@ -64,5 +65,9 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout
 
         }
 
-    
-    }
+    } // end of class --------------------------------------------------------------
+
+//==============================================================================
+
+
+

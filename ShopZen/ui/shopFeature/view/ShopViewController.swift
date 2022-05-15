@@ -31,10 +31,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		let outScrollView = UIScrollView()
 		outScrollView.translatesAutoresizingMaskIntoConstraints = false
 		outScrollView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-		
-		//outScrollView.isScrollEnabled = true
-		//outScrollView.contentSize = CGSize(width: self.view.frame.width, height: scrollView.frame.size.height)
-		return outScrollView
+        return outScrollView
 		}()
 
     /***/
@@ -42,8 +39,6 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         {
         let outBarButton = UIBarButtonItem()
         outBarButton.tintColor = .white
-        //outBarButton.action = #selector(onFilterTapped)
-       // outBarButton.title                 = "97 articles"
         return outBarButton
         }()
     
@@ -285,7 +280,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		)
 		{
         ZenLog.d("popError\(inErrorMsg)")
-        popDialog(inTitle: AppStrings.kErrorTitle, inMsg: AppStrings.kUnknownItem, inWithOkBtn: true)
+        popDialog(inTitle: AppStrings.kErrorTitle, inMsg: inErrorMsg, inWithOkBtn: true)
 		}
 		
 	/**

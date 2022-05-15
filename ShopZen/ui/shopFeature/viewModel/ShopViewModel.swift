@@ -45,7 +45,6 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // A new list of items is received.
             // Immediately push it to the view
             // --------------------
-            print("listOfItem set HELLO")
             viewModelDelegate?	.pushListOfItem(inListOfItem: itemsWithCategory )
             viewModelDelegate?	.pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
             }

@@ -17,39 +17,81 @@ import Combine
 class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
     {
     
-    // MARK: - Private variables
+    // MARK: - Class variables
     
-    public var item : Item?
+    // Should be completed with the current item tapped from the previous screen
+    public var item                 : Item?
+    // Critical parameter of Item object, should be checked
+    private var bgImgUrl            : URL!
+    // Critical parameter of Item object, should be checked
+    private var categoryName        : String!
+    // Ensure that the provided item is compliant and could be display in the view
+    private(set) var isItemCompliant : Bool!
+        {
+        didSet
+            {
+            if( isItemCompliant )
+                {
+                // ----------------
+                // Item is compliant, display it
+                // ----------------
+                viewModelDelegate?.configureItemView(
+                    inImgURL    : bgImgUrl,
+                    inIsUrgent  : item!.isUrgent,
+                    inTitle     : item!.title,
+                    inCatName   : categoryName,
+                    inDesc      : item!.description,
+                    inPrice     : item!.formattedPrice,
+                    inDate      : item!.dateOfCreation.dateAndTimeFormat()
+                    )
+                }
+            else
+                {
+                // ----------------
+                // Item is not compliant, immediately close the view
+                // ----------------
+                viewModelDelegate?.closeThisView()
+                }
+            }
+        }
+    
     
     // MARK: - Public methods
 
     /***/
 	override func onAttach()
 		{
-		if let vItem = item,
-		   let vImgUrlStr = vItem.imagesUrl[AppStrings.kThumb],
-			let vImgUrl = URL(string:vImgUrlStr),
-			let vCatName	= vItem.categoryName
-			{
-            viewModelDelegate?.configureItemView(
-				inImgURL	: vImgUrl,
-				inIsUrgent	: vItem.isUrgent,
-				inTitle		: vItem.title,
-				inCatName	: vCatName,
-				inDesc  	: vItem.description,
-				inPrice 	: vItem.formattedPrice,
-				inDate		: vItem.dateOfCreation.dateAndTimeFormat()
-				)
-			}
-		else
-			{
-            // ----------------
-            // An error happened, immediately close the view
-            // ----------------
-            viewModelDelegate?.closeThisView()
-			}
-		
+       // parseItemDataAndDisplayIt()
+        checkIfItemIsCompliant()
 		}
+    
+    /**
+     Check if item is compliant to correctly display it in the view.
+     
+     --------------
+     CRITICAL PART:
+     Item should holds :
+        - A correct background image URL
+        - A category name
+     */
+    func checkIfItemIsCompliant()
+        {
+        if let vItem = item,
+           let vImgUrlStr = vItem.imagesUrl[AppStrings.kThumb],
+            vImgUrlStr.isValidURL,
+            let vImgUrl = URL(string:vImgUrlStr),
+            let vCatName    = vItem.categoryName
+            {
+            // TODO: check if url is correct
+            bgImgUrl        = vImgUrl
+            categoryName    = vCatName
+            isItemCompliant = true
+            }
+        else
+            {
+            isItemCompliant = false
+            }
+        }
     
     /**
      User taps on the back button

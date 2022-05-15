@@ -16,7 +16,7 @@ class AppStrings
 	static let kThumb 			    = "thumb"
 	static let kDefaultImg		    = "ic_default_img"
     static let kErrorTitle          = "Erreur"
-    static let kNoItemsFound        = "Aucun(s) article(s) disponible(s)"
+    static let kNoItemsFound        = "Aucuns articles disponibles. Merci de vérifier votre connexion internet."
     static let kUnknownItem         = "Article inconnu"
     static let kNotImplementedYet   = "Non implémentée pour cette démo :)"
     static let kShareSocialReason   = "Fonction : Partage sur les réseaux sociaux"

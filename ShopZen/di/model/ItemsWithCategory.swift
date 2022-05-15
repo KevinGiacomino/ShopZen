@@ -27,16 +27,18 @@ class ItemsWithCategory : NSObject
 	 */
     init( inListOfItem : [Item] )
         {
-        // TODO : REVOIR CE FILTRE,
-        // SI URGENT > TRIER LES URGENT PAR DATE
+        // -----------------
+        // Sort the items to to up those whose flag is marked as urgent
+        // Also filter items by their date of creation
+        // -----------------
         self.listOfItem = inListOfItem.sorted { (lhs, rhs) in
             let vLhs = lhs
             let vRhs = rhs
-            // First if item is urgent sort it
+            // Sort by "urgent" parameter
             if vLhs.isUrgent == true { // <1>
                   return vLhs.isUrgent
                 }
-                
+            // Then sort by their date of creation
             return vLhs.dateOfCreation > vRhs.dateOfCreation// <2>
             }
         }

@@ -10,7 +10,9 @@ import Combine
 @testable import ShopZen
 
 
-// your mock implementation for testing
+/**
+ A mock representation of APIProviderProtocol
+ */
 final class MockAPIProvider: APIProviderProtocol
     {
     
@@ -21,5 +23,8 @@ final class MockAPIProvider: APIProviderProtocol
         completion(reqResult)
         }
 
-    //var listOfCategory : [Category]?
-    }
+    } // end of class --------------------------------------------------------------
+
+//==============================================================================
+
+ 

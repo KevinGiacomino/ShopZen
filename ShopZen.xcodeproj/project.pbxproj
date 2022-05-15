@@ -41,6 +41,8 @@
 		0A5AC3A2282FCBD0009157FA /* ItemDetailViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3A1282FCBD0009157FA /* ItemDetailViewController+Extension.swift */; };
 		0A5AC3A5282FDD27009157FA /* MockAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */; };
 		0A5AC3AB282FFD81009157FA /* ItemDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */; };
+		0A5AC3B12830C2D3009157FA /* ItemDetailsViewModelTests+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3B02830C2D3009157FA /* ItemDetailsViewModelTests+Extension.swift */; };
+		0A5AC3B52830C383009157FA /* ShopViewModelTests+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5AC3B42830C383009157FA /* ShopViewModelTests+Extension.swift */; };
 		81203773282BB66500286457 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203772282BB66500286457 /* ColorPalette.swift */; };
 		81203775282BF18300286457 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203774282BF18300286457 /* DateHelper.swift */; };
 		81203778282BF88A00286457 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81203777282BF88A00286457 /* Date+Extension.swift */; };
@@ -117,6 +119,8 @@
 		0A5AC3A1282FCBD0009157FA /* ItemDetailViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDetailViewController+Extension.swift"; sourceTree = "<group>"; };
 		0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIProvider.swift; sourceTree = "<group>"; };
 		0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewModelTests.swift; sourceTree = "<group>"; };
+		0A5AC3B02830C2D3009157FA /* ItemDetailsViewModelTests+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDetailsViewModelTests+Extension.swift"; sourceTree = "<group>"; };
+		0A5AC3B42830C383009157FA /* ShopViewModelTests+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopViewModelTests+Extension.swift"; sourceTree = "<group>"; };
 		81203772282BB66500286457 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		81203774282BF18300286457 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		81203777282BF88A00286457 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -388,7 +392,8 @@
 		0A5AC3A8282FFD58009157FA /* shopFeature */ = {
 			isa = PBXGroup;
 			children = (
-				0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */,
+				0A5AC3B32830C370009157FA /* mock */,
+				0A5AC3B22830C36C009157FA /* extension */,
 				8135F9FA282E541A00D3A22C /* ShopViewModelTests.swift */,
 			);
 			path = shopFeature;
@@ -397,9 +402,34 @@
 		0A5AC3A9282FFD6C009157FA /* itemDetailFeature */ = {
 			isa = PBXGroup;
 			children = (
+				0A5AC3AF2830C2C4009157FA /* extenstion */,
 				0A5AC3AA282FFD81009157FA /* ItemDetailViewModelTests.swift */,
 			);
 			path = itemDetailFeature;
+			sourceTree = "<group>";
+		};
+		0A5AC3AF2830C2C4009157FA /* extenstion */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AC3B02830C2D3009157FA /* ItemDetailsViewModelTests+Extension.swift */,
+			);
+			path = extenstion;
+			sourceTree = "<group>";
+		};
+		0A5AC3B22830C36C009157FA /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AC3B42830C383009157FA /* ShopViewModelTests+Extension.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+		0A5AC3B32830C370009157FA /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				0A5AC3A4282FDD27009157FA /* MockAPIProvider.swift */,
+			);
+			path = mock;
 			sourceTree = "<group>";
 		};
 		81203776282BF19A00286457 /* helper */ = {
@@ -662,7 +692,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A5AC3B12830C2D3009157FA /* ItemDetailsViewModelTests+Extension.swift in Sources */,
 				0A5AC3AB282FFD81009157FA /* ItemDetailViewModelTests.swift in Sources */,
+				0A5AC3B52830C383009157FA /* ShopViewModelTests+Extension.swift in Sources */,
 				8135F9FB282E541A00D3A22C /* ShopViewModelTests.swift in Sources */,
 				0A5AC3A5282FDD27009157FA /* MockAPIProvider.swift in Sources */,
 			);

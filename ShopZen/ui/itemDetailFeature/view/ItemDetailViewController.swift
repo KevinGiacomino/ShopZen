@@ -389,7 +389,6 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
     func closeThisView()
         {
         ZenLog.d("ItemDetailViewController closeThisView")
-
         self.dismiss(animated: true, completion: nil)
         }
 	
