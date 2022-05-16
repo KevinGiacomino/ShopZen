@@ -15,7 +15,6 @@ class ImageCached: UIImageView
 	{
 
     // MARK: - Private methods
-    
     private let imageCache 			= NSCache<AnyObject, AnyObject>()
     private var imageURL			: URL?
     private let activityIndicator 	= UIActivityIndicatorView()

@@ -52,7 +52,7 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
         {
         let outBtn      = UIButton()
         outBtn.translatesAutoresizingMaskIntoConstraints = false
-        outBtn.makeRoundedWithIcon(inImage: ImagePalette.kCloseIco)
+        outBtn.makeRoundedWithIcon(inImage: ImagePalette.kCloseIco, inCornerRadius: 24.0)
         outBtn.addTarget(self, action: #selector(onBackBtnTapped), for: .touchUpInside)
         return outBtn
         }()
@@ -62,7 +62,7 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
         {
         let outBtn      = UIButton()
         outBtn.translatesAutoresizingMaskIntoConstraints = false
-        outBtn.makeRoundedWithIcon(inImage: ImagePalette.kShareIco)
+        outBtn.makeRoundedWithIcon(inImage: ImagePalette.kShareIco, inCornerRadius: 24.0)
         outBtn.addTarget(self, action: #selector(onShareBtnTapped), for: .touchUpInside)
         return outBtn
         }()
@@ -228,13 +228,9 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
         let outToolbar	 = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: self.view.frame.width, height: 44.0)))
         outToolbar		.barStyle = .default
         outToolbar		.isTranslucent = false
-        //outToolbar.backgroundColor = ColorPalette.AccentColor
 		outToolbar		.tintColor = ColorPalette.AccentColor
 		outToolbar		.barTintColor = .white
         outToolbar		.sizeToFit()
-		   // Adding Button ToolBar
-        //let vContactBtn = UIBarButtonItem(image: UIImage(systemName: "mail"), style: .plain, target: self, action: #selector(onContactBtnTapped))
-       // let vContactBtn = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(onContactBtnTapped))
         let vContactBtn = UIBarButtonItem(image: UIImage(systemName: "mail")!, title: "Contactez", target: self, action: #selector(onContactBtnTapped))
         let vSpaceBtn 	= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
      
@@ -284,11 +280,9 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
         {
         let outBarButton = UIBarButtonItem()
         outBarButton.tintColor = .red
-        //outBarButton.action = #selector(onFilterTapped)
-       outBarButton.title                 = "97 articles"
+        outBarButton.title                 = "97 articles"
         return outBarButton
         }()
-    
     
 
 	/**
@@ -367,18 +361,12 @@ class ItemDetailViewController : BaseViewController<ItemDetailDelegate, ItemDeta
 		// --------------
 		item_DescView			.text = inDesc
         setConstraintsFor_descView()
-		//item_DescView			.widthAnchor.constraint(greaterThanOrEqualTo:  mainScrollView.widthAnchor).isActive = true
             
         // --------------
         // Configure shop toolbar:
         // --------------
         setConstraintsFor_shopToolbarView()
-            
-		// --------------
-		// Configure shop button :
-		// --------------
-		/*contentView			.addSubview(shopBtn, anchors: [.leading(16), .trailing(-16), .centerX(0), .centerY(0)])
-		shopBtn					.topAnchor.constraint(equalTo: item_DescView.bottomAnchor, constant: 16).isActive = true*/
+
 
 		}
     

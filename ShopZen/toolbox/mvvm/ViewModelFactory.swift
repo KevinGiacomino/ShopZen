@@ -20,17 +20,9 @@ class ViewModelFactory
 	static let shared: ViewModelFactory =
 		{
         let outInstance = ViewModelFactory()
-        // setup code
         return outInstance
 		}()
-    
-    /// Instance of the APIProvider
- /*   private lazy var apiProvider : APIProvider =
-		{
-		let outAPIProvider = APIProvider()
-		return outAPIProvider
-		}()*/
-    
+
     /// Instance of the ShopViewModel
     public lazy var shopViewModel : ShopViewModel =
 		{

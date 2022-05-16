@@ -81,7 +81,6 @@ extension LayoutAnchor
 
 //==============================================================================
 
-// MARK: - Conveniences
 
 /**
  Extension for UIView
@@ -111,7 +110,10 @@ extension UIView
         {
         for vView in inViews { self.addSubview(vView) }
         }
-    }
+    } // end of extension --------------------------------------------------------------
+
+//==============================================================================
+
 
 /**
  Extenstion for NSLayoutConstraint

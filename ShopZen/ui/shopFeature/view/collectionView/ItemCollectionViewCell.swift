@@ -96,19 +96,14 @@ class ItemCollectionViewCell : UICollectionViewCell
         }()
     
     /***/
-    override func layoutSubviews()
-        {
-        super.layoutSubviews()
-        setupViews()
-        setupConstraints()
-        }
-    
-    /***/
     override init(frame: CGRect)
         {
         super.init(frame: frame)
+        setupViews()
+        setupConstraints()
         }
-        
+      
+    /***/
     required init?(coder aDecoder: NSCoder)
         {
         fatalError("init(coder:) has not been implemented")
@@ -124,47 +119,47 @@ class ItemCollectionViewCell : UICollectionViewCell
         }
         
         
-	/***/
+	 /**
+      Configure the UI widgets constraints
+      */
      func setupConstraints()
         {
-        
-        
-        /*img.topAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        img.leftAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        img.rightAnchor            .constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true*/
+        // ------------
+        // Constraints for img
+        // ------------
         img.topAnchor                       .constraint(equalTo: topAnchor).isActive = true
         img.leftAnchor                      .constraint(equalTo: leftAnchor).isActive = true
         img.trailingAnchor                  .constraint(equalTo: trailingAnchor).isActive = true
 
         // ------------
-        //
+        // Constraints for urgentIconView
         // ------------
         urgentIconView.topAnchor            .constraint(equalTo: img.topAnchor).isActive = true
-        urgentIconView.trailingAnchor            .constraint(equalTo: img.trailingAnchor).isActive = true
-        urgentIconView.widthAnchor            .constraint(equalToConstant: 70).isActive = true
-        urgentIconView.heightAnchor        .constraint(equalToConstant: 70).isActive = true
-        contentView.bringSubviewToFront(urgentIconView)
+        urgentIconView.trailingAnchor       .constraint(equalTo: img.trailingAnchor).isActive = true
+        urgentIconView.widthAnchor          .constraint(equalToConstant: 70).isActive = true
+        urgentIconView.heightAnchor         .constraint(equalToConstant: 70).isActive = true
+        contentView                         .bringSubviewToFront(urgentIconView)
 
         
         // ------------
-        //
+        // Constraitns for categoryName
         // ------------
-        categoryName.topAnchor            .constraint(equalTo: img.bottomAnchor, constant: 4.0).isActive = true
-        categoryName.leadingAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-        categoryName.trailingAnchor    .constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        categoryName.heightAnchor        .constraint(equalToConstant: 35).isActive = true
+        categoryName.topAnchor              .constraint(equalTo: img.bottomAnchor, constant: 4.0).isActive = true
+        categoryName.leadingAnchor          .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+        categoryName.trailingAnchor         .constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        categoryName.heightAnchor           .constraint(equalToConstant: 35).isActive = true
 
         // ------------
-        //
+        // Constraints for title
         // ------------
         title.topAnchor           		 .constraint(equalTo: categoryName.bottomAnchor, constant: 4.0).isActive = true
         title.leadingAnchor       		 .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
         title.trailingAnchor    		.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        //label.bottomAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-
+            
+        // ------------
+        // Constraints for price
+        // ------------
         price.topAnchor            .constraint(equalTo: title.bottomAnchor, constant: 16.0).isActive = true
-        //price.leadingAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-       // price.trailingAnchor    .constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
         price.bottomAnchor        .constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -16.0).isActive = true
         price.centerXAnchor        .constraint(equalTo: self.contentView.centerXAnchor).isActive = true
         price.heightAnchor        .constraint(equalToConstant: 35).isActive = true

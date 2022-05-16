@@ -67,7 +67,6 @@ extension ItemDetailViewController
         view                    .addSubview(item_CategoryView)
         item_CategoryView        .bottomAnchor            .constraint(equalTo: item_BgView.bottomAnchor, constant: 12).isActive = true
         item_CategoryView        .trailingAnchor          .constraint(equalTo: item_BgView.trailingAnchor, constant: -24).isActive = true
-        //view.bringSubviewToFront(item_CategoryView)
         }
 
     /***/
@@ -112,4 +111,9 @@ extension ItemDetailViewController
         view.addSubview(shopToolbarView, anchors: [.leading(0), .trailing(0), .bottom(0)])
         }
 
-    }
+    } // end of extension --------------------------------------------------------------
+
+//==============================================================================
+
+
+

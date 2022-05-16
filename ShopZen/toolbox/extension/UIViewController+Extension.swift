@@ -16,7 +16,6 @@ import UIKit
 extension UIViewController
 	{
 	/**
-	
 	 */
 	public func popDialog
 		(
