@@ -10,7 +10,7 @@
 <!-- DESCRIPTION -->
 ### Description
 
-ShopZen is the first iOS app that lets you easily recover the best items 
+ShopZen is the first iOS app that lets you easily recover the best sellings items 
 
 <!-- BUILD WITH -->
 ### Built With
