@@ -82,7 +82,6 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
             let vImgUrl = URL(string:vImgUrlStr),
             let vCatName    = vItem.categoryName
             {
-            // TODO: check if url is correct
             bgImgUrl        = vImgUrl
             categoryName    = vCatName
             isItemCompliant = true
@@ -119,9 +118,7 @@ class ItemDetailViewModel : BaseViewModel<ItemDetailDelegate>
 		{
         viewModelDelegate?.openMailToContactSeller()
 		}
-        
-    // MARK: - Private methods
-
+    
 
     } // end of extension --------------------------------------------------------------
 

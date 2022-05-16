@@ -69,13 +69,17 @@ import UIKit
 		inErrorMsg : String
 		)
 		
-		
 	/**
 	 Redirect user to the detailled view of the item
 	 
 	  - parameter inVc:			Instance of the ItemDetailViewController
 	 */
 	func goToItemViewDetail( inVc : UIViewController )
+    
+    /**
+     Telling view to stop the UIRefreshController
+     */
+    func endRefreshing()
     
     } // end of extension --------------------------------------------------------------
 

@@ -59,7 +59,6 @@ class ShopViewModelTests: XCTestCase
 		XCTAssertEqual(viewModel.listOfCategory, [])
 		}
 		
-    // TODO: TEST AVC VRAI CATEGORY
     /**
      CASE : Success mocked API call
      ATTEMPTED RESULT : listOfCategory should be [CategoryA, CategoryB]
@@ -111,6 +110,24 @@ class ShopViewModelTests: XCTestCase
         XCTAssertEqual(viewModel.itemsWithCategory, vToTest)
         }
     
+    /**
+     CASE : Pull to refresh action + success mocked API call
+     ATTEMPTED RESULT : refreshMode should be set to FALSE
+     */
+    func test_refreshModeSetToFALSEWhenItemsReceived()
+        {
+        // do
+        viewModel.refreshMode = true
+        var vCallResult : (ItemsWithCategory, [ShopZen.Category]) = (ItemsWithCategory(inListOfItem: []), [])
+        let vListToTest = getStubbedCategoryList()
+        vCallResult.1 = vListToTest
+        MockAPIProvider.reqResult = .success(vCallResult)
+        // when
+        viewModel.callListOfItems(  )
+        // then
+        XCTAssertEqual(viewModel.refreshMode, false)
+        }
+    
     // MARK: ------------------------
     // MARK: - FAILURE tests
     // MARK: ------------------------
@@ -145,6 +162,21 @@ class ShopViewModelTests: XCTestCase
         XCTAssertEqual(viewModel.itemsWithCategory, nil)
         }
   
+    /**
+     CASE : Pull to refresh action + failing API call
+     ATTEMPTED RESULT : refreshMode should be set to FALSE
+     */
+    func test_refreshModeSetToFALSEWhenItemsFailed()
+        {
+        // do
+        viewModel.refreshMode = true
+        MockAPIProvider.reqResult = .failure(NSError(domain: "", code: -1))
+        // when
+        viewModel.callListOfItems(  )
+        // then
+        XCTAssertEqual(viewModel.refreshMode, false)
+        }
+    
 	} // end of class --------------------------------------------------------------
 
 //==============================================================================

@@ -21,7 +21,8 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
     private var isBusy      = false
     /// Instance of APIProvider, should be easily switching to a Mock class for Unit Testing
     private var apiProvider :  APIProviderProtocol.Type     = APIProvider.self
-        
+    /// Set to TRUE if we are dealing with a refreshing of items (when user pull to refresh the view)
+    var refreshMode = false
     /**
 	 Will be filled after requesting resources
 	 */
@@ -47,6 +48,13 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
             // --------------------
             viewModelDelegate?	.pushListOfItem(inListOfItem: itemsWithCategory )
             viewModelDelegate?	.pushNbOfItems(inNbOfItems: getNbOfItemStr(inNb: itemsWithCategory.listOfItem.count))
+            if( refreshMode )
+                {
+                // --------------------
+                // We are in refresh mode so don't forget to prevent the view
+                // --------------------
+                viewModelDelegate?  .endRefreshing()
+                }
             }
         }
     
@@ -119,6 +127,15 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
   
         }
     
+    /**
+     Called when users pull to refresh the UICollectionView
+     Re-call API and refresh data
+     */
+    public func onPullToRefresh()
+        {
+        refreshMode = true
+        callListOfItems()
+        }
     
     // MARK: - Toolbox
     
@@ -136,7 +153,8 @@ class ShopViewModel : BaseViewModel<ShopDelegate>
 				// A new set of data has been received
 				// -----------
 				(inData) in
-				self.isBusy = false
+				self.isBusy         = false
+                self.refreshMode    = false
 				do
 					{
 					// --------------

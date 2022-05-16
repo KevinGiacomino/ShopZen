@@ -13,10 +13,11 @@ import Foundation
 class AppStrings
 	{
 	static let kShopTitle		    = "Boutique"
+    static let kAll                 = "Tout"
 	static let kThumb 			    = "thumb"
 	static let kDefaultImg		    = "ic_default_img"
     static let kErrorTitle          = "Erreur"
-    static let kNoItemsFound        = "Aucuns articles disponibles. Merci de vérifier votre connexion internet."
+    static let kNoItemsFound        = "Aucuns articles disponibles. Merci de vérifier votre connexion internet et de relancer l'app."
     static let kUnknownItem         = "Article inconnu"
     static let kNotImplementedYet   = "Non implémentée pour cette démo :)"
     static let kShareSocialReason   = "Fonction : Partage sur les réseaux sociaux"

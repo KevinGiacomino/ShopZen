@@ -17,16 +17,16 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     {
     
     // MARK: - Private variables
-    
 
+    /// Will contains the list of category button for the filter feature
     var categoryBtns			: [UIButton] = [UIButton]()
-    var mItems                  : [Item]?
+    /// Will contains the list of received items from API
+    var items                   : [Item]?
     
     // MARK: - UI Widgets
-	
-	
-	
-	lazy public var categoryScrollView : UIScrollView =
+
+    /***/
+	lazy var categoryScrollView : UIScrollView =
 		{
 		let outScrollView = UIScrollView()
 		outScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		}()
 
     /***/
-    lazy public var nbOfItemsBarBtn : UIBarButtonItem =
+    lazy var nbOfItemsBarBtn : UIBarButtonItem =
         {
         let outBarButton = UIBarButtonItem()
         outBarButton.tintColor = .white
@@ -43,7 +43,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         }()
     
     /***/
-    lazy public var nbOfItemsText : UILabel =
+    lazy var nbOfItemsText : UILabel =
         {
         let outLabel = UILabel()
         let italicFont = UIFont.italicSystemFont(ofSize:18)
@@ -52,7 +52,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         }()
     
     /***/
-    lazy public var nbOfItemsBarButton : UIBarButtonItem =
+    lazy var nbOfItemsBarButton : UIBarButtonItem =
         {
         let outBarButton = UIBarButtonItem()
        // outBarButton.title = "97 items"
@@ -64,17 +64,11 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         }()
     
     /***/
-    lazy public var filterBarButton : UIBarButtonItem =
+    lazy var filterBarButton : UIBarButtonItem =
         {
         let outBarButton = UIBarButtonItem()
         outBarButton.title = "Filter"
         outBarButton.tintColor = .white
-            // outBarButton.action =
-            
-       // var vFilterImg = UIImage(named: "ic_filter")
-       // outBarButton.setBackgroundImage(vFilterImg, for: .normal)
-      //  outBarButton.image = vFilterImg
-
         outBarButton.image?.withRenderingMode(.alwaysOriginal)
         return outBarButton
         }()
@@ -82,7 +76,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
     /**
      Number of items label
      */
-    lazy public var nbofItemLabel: UILabel =
+    lazy var nbofItemLabel: UILabel =
         {
         let outLabel = UILabel()
         outLabel.textColor = UIColor.black
@@ -91,7 +85,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 
 
     /***/
-    lazy public var categoryStackView : UIStackView =
+    lazy var categoryStackView : UIStackView =
         {
        let outStackView = UIStackView()
         outStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +96,8 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         return outStackView
         }()
 
-    lazy public var collectionFlowLayout : UICollectionViewFlowLayout =
+    /***/
+    lazy var collectionFlowLayout : UICollectionViewFlowLayout =
 		{
         let outLayout = UICollectionViewFlowLayout()
         outLayout.sectionInset = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
@@ -110,17 +105,25 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         outLayout.minimumLineSpacing = 10
         outLayout.itemSize = UICollectionViewFlowLayout.automaticSize
         return outLayout
-        
         }()
     
     /***/
-    lazy public var itemCollectionView : UICollectionView =
+    lazy var refreshControl : UIRefreshControl =
+        {
+        let outRefreshControl = UIRefreshControl()
+        outRefreshControl.addTarget(self, action: #selector(onPullToRefresh(_:)), for: .valueChanged)
+        return outRefreshControl
+        }()
+    
+    /***/
+    lazy var itemCollectionView : UICollectionView =
         {
         let outCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: collectionFlowLayout)
         outCollectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: "ItemCell")
         outCollectionView.backgroundColor = UIColor.white
         outCollectionView.translatesAutoresizingMaskIntoConstraints = false
-
+        outCollectionView.alwaysBounceVertical = true
+        outCollectionView.refreshControl = refreshControl
         outCollectionView.dataSource = self
         outCollectionView.delegate = self
         return outCollectionView
@@ -153,7 +156,16 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		// ---------------
         viewModel.onCategoryTapped(inCatId: sender.tag)
         }
-
+    
+    /**
+     Called when user wants to refresh the UICollectionView
+     */
+    @objc
+    private func onPullToRefresh(_ sender: Any)
+        {
+        viewModel.onPullToRefresh()
+        }
+    
     // MARK: - From delegate (MVVM)
     
     /**
@@ -171,8 +183,6 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		// Configure the categoryScrollView
 		// ----------------
 		categoryScrollView.addSubview(categoryStackView)
-		// Sets height anchor
-		//categoryScrollView.heightAnchor.constraint(equalToConstant: 50).isActive = true
 		// Sets leading anchor to categoryScrollView leading anchor
 		categoryStackView.leadingAnchor.constraint(equalTo: categoryScrollView.leadingAnchor).isActive = true
 		// Sets trailing anchor to categoryScrollView trailing anchor
@@ -194,7 +204,6 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         navigationItem                      .title = AppStrings.kShopTitle
         navigationItem.leftBarButtonItem    = nbOfItemsBarBtn
         }
-    
    
     /**
      See ShopViewDelegate#configureCategoriesView()
@@ -204,21 +213,25 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         inListOfCategory : Categories
         )
         {
-            
-        let vAllBtn = createCatBtn(inTitle: "Tout")
+        // Create a first button named "Tout" that represents the default condition
+        let vAllBtn = createCatBtn(inTitle: AppStrings.kAll)
+        // Auto-select it
         setCatBtnSelectedUI(inBtn: vAllBtn)
+        // Add it to the stack view
         categoryStackView.addArrangedSubview(vAllBtn)
+        // Also add it to the list of buttons
         categoryBtns.append(vAllBtn)
-		
+		// Then loop over all catefgories and create a button for it
         for vCategory in inListOfCategory.listOfCategory.enumerated()
             {
+            // Create the button
             let vCatBtn = createCatBtn(inTitle: vCategory.element.name)
+            // Adding a tag according to the object id
             vCatBtn.tag = vCategory.element.id
-            categoryBtns.append(vCatBtn)
-
-           // vCatBtn.action
+            // Add it to the stack view
             categoryStackView.addArrangedSubview(vCatBtn)
-            
+            // Also add it to the list of buttons
+            categoryBtns.append(vCatBtn)
             }
         }
 
@@ -241,9 +254,6 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
         itemCollectionView                      .backgroundColor  = .clear
         }
 
-
-    
-
     /**
 	 See ShopViewDelegate#pushListOfItem()
 	 */
@@ -252,12 +262,10 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inListOfItem : ItemsWithCategory
 		)
         {
-        ZenLog.d("pushListOfItem")
-
+        ZenLog.d("ShopViewController : pushListOfItem")
         DispatchQueue.main.async
             {
-            self.mItems = inListOfItem.listOfItem
-           // self.itemCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0),  at: .top,  animated: true)
+            self.items = inListOfItem.listOfItem
             self.itemCollectionView.reloadData()
             }
         }
@@ -267,7 +275,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
      */
     func pushNbOfItems( inNbOfItems : String )
         {
-        ZenLog.d("pushNbOfItems \(inNbOfItems)")
+        ZenLog.d("ShopViewController : pushNbOfItems \(inNbOfItems)")
         nbOfItemsBarBtn.title = inNbOfItems
         }
         
@@ -279,7 +287,7 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		inErrorMsg : String
 		)
 		{
-        ZenLog.d("popError\(inErrorMsg)")
+        ZenLog.d("ShopViewController : popError\(inErrorMsg)")
         popDialog(inTitle: AppStrings.kErrorTitle, inMsg: inErrorMsg, inWithOkBtn: true)
 		}
 		
@@ -292,6 +300,14 @@ class ShopViewController        : BaseViewController<ShopDelegate, ShopViewModel
 		//self.navigationController?.pushViewController(inVc, animated: true)
 		self.present(inVc, animated: true, completion: nil)
 		}
+    
+    /**
+     See ShopViewDelegate#endRefreshing()
+     */
+    func endRefreshing()
+        {
+        refreshControl.endRefreshing()
+        }
     
     // MARK: - Methods from Base (View Model)
     

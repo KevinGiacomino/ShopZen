@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-
+/**
+ Contains all assets colors for this project
+ */
 struct ColorPalette
 	{
     /// Accent color with fallback
@@ -16,4 +18,9 @@ struct ColorPalette
     static let SecondaryColor   = UIColor(named: "SecondaryColor") ?? .systemOrange
     static let AppBgColor 	    = UIColor(named: "AppBgColor")     ?? .systemGray
     
-	}
+	} // end of extension --------------------------------------------------------------
+
+//==============================================================================
+
+
+

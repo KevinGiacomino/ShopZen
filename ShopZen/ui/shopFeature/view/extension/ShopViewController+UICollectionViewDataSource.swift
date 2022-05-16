@@ -16,14 +16,14 @@ extension ShopViewController: UICollectionViewDataSource
     /***/
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
         {
-        return mItems?.count ?? 0
+        return items?.count ?? 0
         }
     /***/
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
         {
         let outCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCollectionViewCell
         // Ensure than an item exists at indexPath
-        guard let vItem = mItems?[indexPath.row] else { return outCell }
+        guard let vItem = items?[indexPath.row] else { return outCell }
         // Set image
         if let vImgUrlStr = vItem.imagesUrl[ AppStrings.kThumb ],
            let vImgUrl = URL(string: vImgUrlStr)

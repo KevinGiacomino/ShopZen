@@ -8,6 +8,7 @@
 import Foundation
 
 /**
+ Date format helper class
  */
 struct DateHelper
 	{
