@@ -12,8 +12,8 @@ import Combine
  Generic object allowing to run a network call using the Combine framework
  This object also hold some networking configuration
  */
-struct APIClient
-	{
+struct APIClient {
+	
     let session = URLSession.shared
     
     /**
@@ -21,18 +21,17 @@ struct APIClient
 		- a Value that will be decoded
 		- a Response that represents the network call response
 	 */
-    struct Response<T>
-		{
+    struct Response<T> {
         let value: T
-        let response: URLResponse
-		}
+        let response: URLResponse	
+    }
     
     /**
      Generic methods to run any network call and easily decode it into Object
      */
-    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error>
-		{
-        return URLSession.shared
+    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error> {
+        
+	return URLSession.shared
             .dataTaskPublisher(for: request)
             .tryMap { result -> Response<T> in
                 let outValue = try decoder.decode(T.self, from: result.data)
@@ -40,8 +39,8 @@ struct APIClient
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
-		}
+	}
 		
-	} // end of extension --------------------------------------------------------------
+} // end of extension --------------------------------------------------------------
 
 //=============================================================================
